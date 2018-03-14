@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<section name="ExportRepresentationsAsImagesDialog">
+		<item value="true" key="autoScaleDiagram"/>
+		<item value="JPG" key="ExportRepresentationsAsImagesDialog.imageFormat"/>
+		<list key="ExportRepresentationsAsImagesDialog.file">
+			<item value="C:\Users\Pisti\Desktop"/>
+			<item value="C:\Users\Pisti\Desktop\encodingLang class diagram.jpg"/>
+		</list>
+	</section>
+</section>

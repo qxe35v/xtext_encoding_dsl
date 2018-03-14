@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel"
+    modelDirectory="/encoding_model/src-gen" creationIcons="false"
+    editDirectory="/encoding_model.edit/src-gen" editorDirectory="/encoding_model.editor/src-gen"
+    modelPluginID="encoding_model" modelName="Encoding_model" rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container"
+    codeFormatting="true" importerID="org.eclipse.emf.importer.ecore" complianceLevel="8.0"
+    copyrightFields="false" operationReflection="true" importOrganizing="true">
+  <foreignModel>encoding_model.ecore</foreignModel>
+  <testsDirectory xsi:nil="true"/>
+  <genPackages prefix="Encoding_model" basePackage="org.example.model" disposableProviderFactory="true"
+      ecorePackage="encoding_model.ecore#/">
+    <genClasses ecoreClass="encoding_model.ecore#//Comment"/>
+    <genClasses ecoreClass="encoding_model.ecore#//SourceMapping">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference encoding_model.ecore#//SourceMapping/sequencemapping"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute encoding_model.ecore#//SourceMapping/name"/>
+    </genClasses>
+    <genClasses ecoreClass="encoding_model.ecore#//SequenceMapping">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute encoding_model.ecore#//SequenceMapping/from"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute encoding_model.ecore#//SequenceMapping/to"/>
+    </genClasses>
+    <genClasses ecoreClass="encoding_model.ecore#//ExactMapping"/>
+    <genClasses ecoreClass="encoding_model.ecore#//TransliterationMapping"/>
+    <genClasses ecoreClass="encoding_model.ecore#//Element"/>
+  </genPackages>
+</genmodel:GenModel>
