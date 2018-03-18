@@ -733,7 +733,7 @@ finally {
 	restoreStackSize(stackSize);
 }
 
-RULE_INPUTCHAR : '0x' ('0'..'9'|'a'..'f') ('0'..'9'|'a'..'f') ('0'..'9'|'a'..'f') ('0'..'9'|'a'..'f');
+RULE_INPUTCHAR : '0x' (('0'..'9'|'a'..'f') ('0'..'9'|'a'..'f'))+;
 
 RULE_ID : '^'? ('a'..'z'|'A'..'Z'|'_') ('a'..'z'|'A'..'Z'|'_'|'0'..'9')*;
 
