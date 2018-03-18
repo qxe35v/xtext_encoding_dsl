@@ -40,6 +40,20 @@ class EncodingLangParsingTest {
 	}
 	
 	@Test
+	def void comment() {
+		val result = parseHelper.parse('''
+			source test{ //comment1
+				alias testAlias1 //comment2
+				/*commentline1
+				  commentline2*/
+				alias TestAlias2
+			}
+		''')
+		Assert.assertNotNull(result)
+		Assert.assertTrue(result.eResource.errors.isEmpty)
+	}
+	
+	@Test
 	def void multipleMapping_2Bytes_NumOnly() {
 		val result = parseHelper.parse('''
 			source test{
@@ -75,9 +89,9 @@ class EncodingLangParsingTest {
 		val result = parseHelper.parse('''
 			source test{
 				0xabcd=0xefef
-				0xa2b4=0xde9c
-				0xaaaa~0xffff
-				0xb78c~0xf32a
+				/*0xa2b4=0xde9c
+				  0xaaaa~0xffff
+				  0xb78c~0xf32a*/
 			}
 		''')
 		Assert.assertNotNull(result)

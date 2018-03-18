@@ -59,6 +59,34 @@ public class EncodingLangParsingTest {
   }
   
   @Test
+  public void comment() {
+    try {
+      StringConcatenation _builder = new StringConcatenation();
+      _builder.append("source test{ //comment1");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("alias testAlias1 //comment2");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("/*commentline1");
+      _builder.newLine();
+      _builder.append("\t  ");
+      _builder.append("commentline2*/");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("alias TestAlias2");
+      _builder.newLine();
+      _builder.append("}");
+      _builder.newLine();
+      final Model result = this.parseHelper.parse(_builder);
+      Assert.assertNotNull(result);
+      Assert.assertTrue(result.eResource().getErrors().isEmpty());
+    } catch (Throwable _e) {
+      throw Exceptions.sneakyThrow(_e);
+    }
+  }
+  
+  @Test
   public void multipleMapping_2Bytes_NumOnly() {
     try {
       StringConcatenation _builder = new StringConcatenation();
@@ -130,13 +158,13 @@ public class EncodingLangParsingTest {
       _builder.append("0xabcd=0xefef");
       _builder.newLine();
       _builder.append("\t");
-      _builder.append("0xa2b4=0xde9c");
+      _builder.append("/*0xa2b4=0xde9c");
       _builder.newLine();
-      _builder.append("\t");
+      _builder.append("\t  ");
       _builder.append("0xaaaa~0xffff");
       _builder.newLine();
-      _builder.append("\t");
-      _builder.append("0xb78c~0xf32a");
+      _builder.append("\t  ");
+      _builder.append("0xb78c~0xf32a*/");
       _builder.newLine();
       _builder.append("}");
       _builder.newLine();

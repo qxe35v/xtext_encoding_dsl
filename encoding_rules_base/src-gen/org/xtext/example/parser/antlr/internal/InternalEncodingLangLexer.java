@@ -168,15 +168,47 @@ public class InternalEncodingLangLexer extends Lexer {
         try {
             int _type = RULE_INPUTCHAR;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalEncodingLang.g:381:16: ( '0' .. '9' 'x' '0' .. '9' '0' .. '9' '0' .. '9' '0' .. '9' )
-            // InternalEncodingLang.g:381:18: '0' .. '9' 'x' '0' .. '9' '0' .. '9' '0' .. '9' '0' .. '9'
+            // InternalEncodingLang.g:381:16: ( '0x' ( '0' .. '9' | 'a' .. 'f' ) ( '0' .. '9' | 'a' .. 'f' ) ( '0' .. '9' | 'a' .. 'f' ) ( '0' .. '9' | 'a' .. 'f' ) )
+            // InternalEncodingLang.g:381:18: '0x' ( '0' .. '9' | 'a' .. 'f' ) ( '0' .. '9' | 'a' .. 'f' ) ( '0' .. '9' | 'a' .. 'f' ) ( '0' .. '9' | 'a' .. 'f' )
             {
-            matchRange('0','9'); 
-            match('x'); 
-            matchRange('0','9'); 
-            matchRange('0','9'); 
-            matchRange('0','9'); 
-            matchRange('0','9'); 
+            match("0x"); 
+
+            if ( (input.LA(1)>='0' && input.LA(1)<='9')||(input.LA(1)>='a' && input.LA(1)<='f') ) {
+                input.consume();
+
+            }
+            else {
+                MismatchedSetException mse = new MismatchedSetException(null,input);
+                recover(mse);
+                throw mse;}
+
+            if ( (input.LA(1)>='0' && input.LA(1)<='9')||(input.LA(1)>='a' && input.LA(1)<='f') ) {
+                input.consume();
+
+            }
+            else {
+                MismatchedSetException mse = new MismatchedSetException(null,input);
+                recover(mse);
+                throw mse;}
+
+            if ( (input.LA(1)>='0' && input.LA(1)<='9')||(input.LA(1)>='a' && input.LA(1)<='f') ) {
+                input.consume();
+
+            }
+            else {
+                MismatchedSetException mse = new MismatchedSetException(null,input);
+                recover(mse);
+                throw mse;}
+
+            if ( (input.LA(1)>='0' && input.LA(1)<='9')||(input.LA(1)>='a' && input.LA(1)<='f') ) {
+                input.consume();
+
+            }
+            else {
+                MismatchedSetException mse = new MismatchedSetException(null,input);
+                recover(mse);
+                throw mse;}
+
 
             }
 
@@ -797,37 +829,32 @@ public class InternalEncodingLangLexer extends Lexer {
 
     protected DFA12 dfa12 = new DFA12(this);
     static final String DFA12_eotS =
-        "\1\uffff\1\20\4\uffff\1\20\1\27\1\16\1\uffff\3\16\2\uffff\1\20\5\uffff\1\20\6\uffff\5\20\1\43\1\44\2\uffff";
+        "\1\uffff\1\21\4\uffff\1\21\1\30\1\17\2\uffff\3\17\2\uffff\1\21\5\uffff\1\21\6\uffff\5\21\1\44\1\45\2\uffff";
     static final String DFA12_eofS =
-        "\45\uffff";
+        "\46\uffff";
     static final String DFA12_minS =
-        "\1\0\1\157\4\uffff\1\154\1\170\1\101\1\uffff\2\0\1\52\2\uffff\1\165\5\uffff\1\151\6\uffff\1\162\1\141\1\143\1\163\1\145\2\60\2\uffff";
+        "\1\0\1\157\4\uffff\1\154\1\170\1\101\2\uffff\2\0\1\52\2\uffff\1\165\5\uffff\1\151\6\uffff\1\162\1\141\1\143\1\163\1\145\2\60\2\uffff";
     static final String DFA12_maxS =
-        "\1\uffff\1\157\4\uffff\1\154\1\170\1\172\1\uffff\2\uffff\1\57\2\uffff\1\165\5\uffff\1\151\6\uffff\1\162\1\141\1\143\1\163\1\145\2\172\2\uffff";
+        "\1\uffff\1\157\4\uffff\1\154\1\170\1\172\2\uffff\2\uffff\1\57\2\uffff\1\165\5\uffff\1\151\6\uffff\1\162\1\141\1\143\1\163\1\145\2\172\2\uffff";
     static final String DFA12_acceptS =
-        "\2\uffff\1\2\1\3\1\4\1\5\3\uffff\1\10\3\uffff\1\15\1\16\1\uffff\1\10\1\2\1\3\1\4\1\5\1\uffff\1\7\1\11\1\12\1\13\1\14\1\15\7\uffff\1\6\1\1";
+        "\2\uffff\1\2\1\3\1\4\1\5\3\uffff\1\10\1\11\3\uffff\1\15\1\16\1\uffff\1\10\1\2\1\3\1\4\1\5\1\uffff\1\7\1\11\1\12\1\13\1\14\1\15\7\uffff\1\6\1\1";
     static final String DFA12_specialS =
-        "\1\1\11\uffff\1\0\1\2\31\uffff}>";
+        "\1\1\12\uffff\1\2\1\0\31\uffff}>";
     static final String[] DFA12_transitionS = {
-            "\11\16\2\15\2\16\1\15\22\16\1\15\1\16\1\12\4\16\1\13\7\16\1\14\12\7\3\16\1\4\3\16\32\11\3\16\1\10\1\11\1\16\1\6\21\11\1\1\7\11\1\2\1\16\1\3\1\5\uff81\16",
-            "\1\17",
+            "\11\17\2\16\2\17\1\16\22\17\1\16\1\17\1\13\4\17\1\14\7\17\1\15\1\7\11\12\3\17\1\4\3\17\32\11\3\17\1\10\1\11\1\17\1\6\21\11\1\1\7\11\1\2\1\17\1\3\1\5\uff81\17",
+            "\1\20",
             "",
             "",
             "",
             "",
-            "\1\25",
             "\1\26",
-            "\32\20\4\uffff\1\20\1\uffff\32\20",
-            "",
-            "\0\30",
-            "\0\30",
-            "\1\31\4\uffff\1\32",
+            "\1\27",
+            "\32\21\4\uffff\1\21\1\uffff\32\21",
             "",
             "",
-            "\1\34",
-            "",
-            "",
-            "",
+            "\0\31",
+            "\0\31",
+            "\1\32\4\uffff\1\33",
             "",
             "",
             "\1\35",
@@ -836,14 +863,20 @@ public class InternalEncodingLangLexer extends Lexer {
             "",
             "",
             "",
-            "",
             "\1\36",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
             "\1\37",
             "\1\40",
             "\1\41",
             "\1\42",
-            "\12\20\7\uffff\32\20\4\uffff\1\20\1\uffff\32\20",
-            "\12\20\7\uffff\32\20\4\uffff\1\20\1\uffff\32\20",
+            "\1\43",
+            "\12\21\7\uffff\32\21\4\uffff\1\21\1\uffff\32\21",
+            "\12\21\7\uffff\32\21\4\uffff\1\21\1\uffff\32\21",
             "",
             ""
     };
@@ -885,12 +918,12 @@ public class InternalEncodingLangLexer extends Lexer {
         	int _s = s;
             switch ( s ) {
                     case 0 : 
-                        int LA12_10 = input.LA(1);
+                        int LA12_12 = input.LA(1);
 
                         s = -1;
-                        if ( ((LA12_10>='\u0000' && LA12_10<='\uFFFF')) ) {s = 24;}
+                        if ( ((LA12_12>='\u0000' && LA12_12<='\uFFFF')) ) {s = 25;}
 
-                        else s = 14;
+                        else s = 15;
 
                         if ( s>=0 ) return s;
                         break;
@@ -910,21 +943,23 @@ public class InternalEncodingLangLexer extends Lexer {
 
                         else if ( (LA12_0=='a') ) {s = 6;}
 
-                        else if ( ((LA12_0>='0' && LA12_0<='9')) ) {s = 7;}
+                        else if ( (LA12_0=='0') ) {s = 7;}
 
                         else if ( (LA12_0=='^') ) {s = 8;}
 
                         else if ( ((LA12_0>='A' && LA12_0<='Z')||LA12_0=='_'||(LA12_0>='b' && LA12_0<='r')||(LA12_0>='t' && LA12_0<='z')) ) {s = 9;}
 
-                        else if ( (LA12_0=='\"') ) {s = 10;}
+                        else if ( ((LA12_0>='1' && LA12_0<='9')) ) {s = 10;}
 
-                        else if ( (LA12_0=='\'') ) {s = 11;}
+                        else if ( (LA12_0=='\"') ) {s = 11;}
 
-                        else if ( (LA12_0=='/') ) {s = 12;}
+                        else if ( (LA12_0=='\'') ) {s = 12;}
 
-                        else if ( ((LA12_0>='\t' && LA12_0<='\n')||LA12_0=='\r'||LA12_0==' ') ) {s = 13;}
+                        else if ( (LA12_0=='/') ) {s = 13;}
 
-                        else if ( ((LA12_0>='\u0000' && LA12_0<='\b')||(LA12_0>='\u000B' && LA12_0<='\f')||(LA12_0>='\u000E' && LA12_0<='\u001F')||LA12_0=='!'||(LA12_0>='#' && LA12_0<='&')||(LA12_0>='(' && LA12_0<='.')||(LA12_0>=':' && LA12_0<='<')||(LA12_0>='>' && LA12_0<='@')||(LA12_0>='[' && LA12_0<=']')||LA12_0=='`'||LA12_0=='|'||(LA12_0>='\u007F' && LA12_0<='\uFFFF')) ) {s = 14;}
+                        else if ( ((LA12_0>='\t' && LA12_0<='\n')||LA12_0=='\r'||LA12_0==' ') ) {s = 14;}
+
+                        else if ( ((LA12_0>='\u0000' && LA12_0<='\b')||(LA12_0>='\u000B' && LA12_0<='\f')||(LA12_0>='\u000E' && LA12_0<='\u001F')||LA12_0=='!'||(LA12_0>='#' && LA12_0<='&')||(LA12_0>='(' && LA12_0<='.')||(LA12_0>=':' && LA12_0<='<')||(LA12_0>='>' && LA12_0<='@')||(LA12_0>='[' && LA12_0<=']')||LA12_0=='`'||LA12_0=='|'||(LA12_0>='\u007F' && LA12_0<='\uFFFF')) ) {s = 15;}
 
                         if ( s>=0 ) return s;
                         break;
@@ -932,9 +967,9 @@ public class InternalEncodingLangLexer extends Lexer {
                         int LA12_11 = input.LA(1);
 
                         s = -1;
-                        if ( ((LA12_11>='\u0000' && LA12_11<='\uFFFF')) ) {s = 24;}
+                        if ( ((LA12_11>='\u0000' && LA12_11<='\uFFFF')) ) {s = 25;}
 
-                        else s = 14;
+                        else s = 15;
 
                         if ( s>=0 ) return s;
                         break;

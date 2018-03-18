@@ -280,7 +280,7 @@ public class EncodingLangGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//terminal INPUTCHAR:
-	//	'0'..'9' 'x' '0'..'9' '0'..'9' '0'..'9' '0'..'9';
+	//	'0x' ('0'..'9' | 'a'..'f') ('0'..'9' | 'a'..'f') ('0'..'9' | 'a'..'f') ('0'..'9' | 'a'..'f');
 	public TerminalRule getINPUTCHARRule() {
 		return tINPUTCHAR;
 	}
