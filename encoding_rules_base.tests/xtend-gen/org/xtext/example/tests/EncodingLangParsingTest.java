@@ -203,15 +203,4 @@ public class EncodingLangParsingTest {
       throw Exceptions.sneakyThrow(_e);
     }
   }
-  
-  @Test
-  public void formatting() {
-    throw new Error("Unresolved compilation problems:"
-      + "\nThe method serialize(Object) is undefined for the type Model"
-      + "\nSaveOptions cannot be resolved to a type."
-      + "\nInvalid number of arguments. The method assertEquals(long, long) is not applicable for the arguments (Object)"
-      + "\nnewBuilder cannot be resolved"
-      + "\nformat cannot be resolved"
-      + "\ngetOptions cannot be resolved");
-  }
 }

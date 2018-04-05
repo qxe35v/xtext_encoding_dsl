@@ -10,6 +10,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.formatting2.AbstractFormatter2;
 import org.eclipse.xtext.formatting2.IFormattableDocument;
 import org.eclipse.xtext.formatting2.IHiddenRegionFormatter;
+import org.eclipse.xtext.formatting2.regionaccess.ISemanticRegion;
 import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.xbase.lib.Extension;
 import org.eclipse.xtext.xbase.lib.Procedures.Procedure1;
@@ -40,67 +41,80 @@ public class EncodingLangFormatter extends AbstractFormatter2 {
       it.oneSpace();
     };
     document.append(document.prepend(this.textRegionExtensions.regionFor(s).keyword("source"), _function), _function_1);
+    ISemanticRegion open = this.textRegionExtensions.regionFor(s).keyword("{");
     final Procedure1<IHiddenRegionFormatter> _function_2 = (IHiddenRegionFormatter it) -> {
       it.oneSpace();
     };
     final Procedure1<IHiddenRegionFormatter> _function_3 = (IHiddenRegionFormatter it) -> {
       it.newLine();
     };
-    document.append(document.prepend(this.textRegionExtensions.regionFor(s).keyword("{"), _function_2), _function_3);
+    document.append(document.prepend(open, _function_2), _function_3);
+    ISemanticRegion close = this.textRegionExtensions.regionFor(s).keyword("}");
     final Procedure1<IHiddenRegionFormatter> _function_4 = (IHiddenRegionFormatter it) -> {
       it.newLine();
     };
-    document.append(this.textRegionExtensions.regionFor(s).keyword("}"), _function_4);
+    document.append(close, _function_4);
+    final Procedure1<IHiddenRegionFormatter> _function_5 = (IHiddenRegionFormatter it) -> {
+      it.indent();
+    };
+    document.<ISemanticRegion, ISemanticRegion>interior(open, close, _function_5);
     EList<Alias> _aliases = s.getAliases();
     for (final Alias alias : _aliases) {
-      final Procedure1<IHiddenRegionFormatter> _function_5 = (IHiddenRegionFormatter it) -> {
-        it.indent();
-      };
-      final Procedure1<IHiddenRegionFormatter> _function_6 = (IHiddenRegionFormatter it) -> {
-        it.oneSpace();
-      };
-      document.append(document.prepend(this.textRegionExtensions.regionFor(alias).keyword("alias"), _function_5), _function_6);
+      {
+        final Procedure1<IHiddenRegionFormatter> _function_6 = (IHiddenRegionFormatter it) -> {
+          it.newLine();
+        };
+        document.<Alias>append(alias, _function_6);
+        final Procedure1<IHiddenRegionFormatter> _function_7 = (IHiddenRegionFormatter it) -> {
+          it.indent();
+        };
+        final Procedure1<IHiddenRegionFormatter> _function_8 = (IHiddenRegionFormatter it) -> {
+          it.oneSpace();
+        };
+        document.append(document.prepend(this.textRegionExtensions.regionFor(alias).keyword("alias"), _function_7), _function_8);
+      }
     }
     EList<Mapping> _mappings = s.getMappings();
     for (final Mapping mapping : _mappings) {
-      final Procedure1<IHiddenRegionFormatter> _function_7 = (IHiddenRegionFormatter it) -> {
-        it.newLine();
-      };
-      final Procedure1<IHiddenRegionFormatter> _function_8 = (IHiddenRegionFormatter it) -> {
-        it.setSpace("\t");
-      };
-      document.<Mapping>prepend(document.<Mapping>append(mapping, _function_7), _function_8);
+      {
+        final Procedure1<IHiddenRegionFormatter> _function_6 = (IHiddenRegionFormatter it) -> {
+          it.newLine();
+        };
+        document.<Mapping>append(mapping, _function_6);
+        final Procedure1<IHiddenRegionFormatter> _function_7 = (IHiddenRegionFormatter it) -> {
+          it.oneSpace();
+        };
+        document.surround(this.textRegionExtensions.regionFor(mapping).keyword("="), _function_7);
+        final Procedure1<IHiddenRegionFormatter> _function_8 = (IHiddenRegionFormatter it) -> {
+          it.oneSpace();
+        };
+        document.surround(this.textRegionExtensions.regionFor(mapping).keyword("~"), _function_8);
+      }
     }
   }
   
-  protected void _format(final Alias a, @Extension final IFormattableDocument document) {
-  }
-  
-  public void format(final Object a, final IFormattableDocument document) {
-    if (a instanceof XtextResource) {
-      _format((XtextResource)a, document);
+  public void format(final Object model, final IFormattableDocument document) {
+    if (model instanceof XtextResource) {
+      _format((XtextResource)model, document);
       return;
-    } else if (a instanceof Alias) {
-      _format((Alias)a, document);
+    } else if (model instanceof Model) {
+      _format((Model)model, document);
       return;
-    } else if (a instanceof Model) {
-      _format((Model)a, document);
+    } else if (model instanceof SourceMapping) {
+      _format((SourceMapping)model, document);
       return;
-    } else if (a instanceof SourceMapping) {
-      _format((SourceMapping)a, document);
+    } else if (model instanceof EObject) {
+      _format((EObject)model, document);
       return;
-    } else if (a instanceof EObject) {
-      _format((EObject)a, document);
-      return;
-    } else if (a == null) {
+    } else if (model == null) {
       _format((Void)null, document);
       return;
-    } else if (a != null) {
-      _format(a, document);
+    } else if (model != null) {
+      _format(model, document);
       return;
     } else {
       throw new IllegalArgumentException("Unhandled parameter types: " +
-        Arrays.<Object>asList(a, document).toString());
+        Arrays.<Object>asList(model, document).toString());
     }
   }
 }

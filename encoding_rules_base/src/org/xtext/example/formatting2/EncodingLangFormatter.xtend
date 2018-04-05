@@ -26,21 +26,19 @@ class EncodingLangFormatter extends AbstractFormatter2 {
 	def dispatch void format(SourceMapping s, extension IFormattableDocument document) {
 		// TODO: format HiddenRegions around keywords, attributes, cross references, etc. 
 		s.regionFor.keyword("source").prepend[newLine].append[oneSpace]
-		s.regionFor.keyword("{").prepend[oneSpace].append[newLine]
-		s.regionFor.keyword("}").append[newLine]
+		var open = s.regionFor.keyword("{")
+		open.prepend[oneSpace].append[newLine]
+		var close = s.regionFor.keyword("}")
+		close.append[newLine]
+		interior(open, close)[indent]
 		for (Alias alias : s.getAliases()) {
-			//alias.append[newLine].prepend[indent]
-			//alias.prepend[indent]
+			alias.append[newLine]
 			alias.regionFor.keyword("alias").prepend[indent].append[oneSpace]
 		}
 		for (Mapping mapping : s.getMappings()) {
-			mapping.append[newLine].prepend[space = "\t"]
-			//mapping.regionFor.keyword("")
+			mapping.append[newLine]
+			mapping.regionFor.keyword("=").surround[oneSpace]
+			mapping.regionFor.keyword("~").surround[oneSpace]
 		}
 	}
-
-	def dispatch void format(Alias a, extension IFormattableDocument document) {
-	}
-
-// TODO: implement for 
 }

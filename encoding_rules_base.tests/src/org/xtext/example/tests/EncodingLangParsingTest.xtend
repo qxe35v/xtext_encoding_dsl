@@ -110,19 +110,4 @@ class EncodingLangParsingTest {
 		Assert.assertNotNull(result)
 		Assert.assertTrue(result.eResource.errors.isEmpty)
 	}
-
-	@Test
-	def void formatting() {
-		Assert.assertEquals(parseHelper.parse('''
-			//comment
-			
-			source someEncodingName{
-			alias anAliasName
-			alias /*dads */ 	anotherAliasName
-				0x0001 = 0x0012 //exact
-			0x0002~0x0954
-				
-			}
-			''').serialize(SaveOptions::newBuilder.format().getOptions()))
-	}
 }
