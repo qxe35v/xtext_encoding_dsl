@@ -25,5 +25,6 @@ Export-Package: org.xtext.example.services,
  org.xtext.example,
  org.xtext.example.validation,
  org.xtext.example.parser.antlr,
- org.xtext.example.encodingLang
+ org.xtext.example.encodingLang,
+ org.xtext.example.formatting2
 Import-Package: org.apache.log4j
