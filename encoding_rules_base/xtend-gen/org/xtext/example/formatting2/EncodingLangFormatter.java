@@ -3,7 +3,6 @@
  */
 package org.xtext.example.formatting2;
 
-import com.google.inject.Inject;
 import java.util.Arrays;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
@@ -18,14 +17,9 @@ import org.xtext.example.encodingLang.Alias;
 import org.xtext.example.encodingLang.Mapping;
 import org.xtext.example.encodingLang.Model;
 import org.xtext.example.encodingLang.SourceMapping;
-import org.xtext.example.services.EncodingLangGrammarAccess;
 
 @SuppressWarnings("all")
 public class EncodingLangFormatter extends AbstractFormatter2 {
-  @Inject
-  @Extension
-  private EncodingLangGrammarAccess _encodingLangGrammarAccess;
-  
   protected void _format(final Model model, @Extension final IFormattableDocument document) {
     EList<SourceMapping> _elements = model.getElements();
     for (final SourceMapping sourceMapping : _elements) {

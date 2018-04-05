@@ -3,18 +3,18 @@
  */
 package org.xtext.example.formatting2
 
-import com.google.inject.Inject
+//import com.google.inject.Inject
 import org.eclipse.xtext.formatting2.AbstractFormatter2
 import org.eclipse.xtext.formatting2.IFormattableDocument
 import org.xtext.example.encodingLang.Alias
 import org.xtext.example.encodingLang.Mapping
 import org.xtext.example.encodingLang.Model
 import org.xtext.example.encodingLang.SourceMapping
-import org.xtext.example.services.EncodingLangGrammarAccess
+//import org.xtext.example.services.EncodingLangGrammarAccess
 
 class EncodingLangFormatter extends AbstractFormatter2 {
 
-	@Inject extension EncodingLangGrammarAccess
+	//@Inject extension EncodingLangGrammarAccess
 
 	def dispatch void format(Model model, extension IFormattableDocument document) {
 		// TODO: format HiddenRegions around keywords, attributes, cross references, etc. 
