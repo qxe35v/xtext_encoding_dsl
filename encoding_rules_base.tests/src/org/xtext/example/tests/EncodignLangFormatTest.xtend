@@ -37,4 +37,45 @@ class EncodignLangFormatTest{
 		]
 	}
 	
+	@Test
+	def void formatting_MultipleSource() {
+		assertFormatted[
+			toBeFormatted= '''
+				//comment
+				
+				source someEncodingName{
+				alias anAliasName alias /*dads */ 	anotherAliasName
+					0x0001 =0x0012 //exact
+				0x0002~0x0954
+				
+				}
+				
+				//comment
+				
+				source someEncodingName{
+				alias anAliasName alias /*dads */ 	anotherAliasName
+					0x0001 =0x0012 //exact
+				0x0002~0x0954
+				
+				}
+			'''
+			expectation = '''
+				//comment
+				source someEncodingName {
+					alias anAliasName
+					alias /*dads */ anotherAliasName
+					0x0001 = 0x0012 // exact
+					0x0002 ~ 0x0954
+				}
+				//comment
+				source someEncodingName {
+					alias anAliasName
+					alias /*dads */ anotherAliasName
+					0x0001 = 0x0012 // exact
+					0x0002 ~ 0x0954
+				}
+			'''
+		]
+	}
+	
 }

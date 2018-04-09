@@ -203,4 +203,40 @@ public class EncodingLangParsingTest {
       throw Exceptions.sneakyThrow(_e);
     }
   }
+  
+  @Test
+  public void multipleSource() {
+    try {
+      StringConcatenation _builder = new StringConcatenation();
+      _builder.append("source test{");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("//need alias");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("0xabcd=0xef");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("0xa2b4=0xde449c}");
+      _builder.newLine();
+      _builder.append("source test2{");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("alias test2alias");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("0xaaacda~0xf8ff");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("0xb7~0xf32a6b");
+      _builder.newLine();
+      _builder.append("}");
+      _builder.newLine();
+      final Model result = this.parseHelper.parse(_builder);
+      Assert.assertNotNull(result);
+      Assert.assertTrue(result.eResource().getErrors().isEmpty());
+    } catch (Throwable _e) {
+      throw Exceptions.sneakyThrow(_e);
+    }
+  }
 }

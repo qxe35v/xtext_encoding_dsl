@@ -110,4 +110,21 @@ class EncodingLangParsingTest {
 		Assert.assertNotNull(result)
 		Assert.assertTrue(result.eResource.errors.isEmpty)
 	}
+
+	@Test
+	def void multipleSource() {
+		val result = parseHelper.parse('''
+			source test{
+				//need alias
+				0xabcd=0xef
+				0xa2b4=0xde449c}
+			source test2{
+				alias test2alias
+				0xaaacda~0xf8ff
+				0xb7~0xf32a6b
+			}
+		''')
+		Assert.assertNotNull(result)
+		Assert.assertTrue(result.eResource.errors.isEmpty)
+	}
 }
