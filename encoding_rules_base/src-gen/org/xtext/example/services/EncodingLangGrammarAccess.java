@@ -28,10 +28,10 @@ public class EncodingLangGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cElementsSourceMappingParserRuleCall_0 = (RuleCall)cElementsAssignment.eContents().get(0);
 		
 		//Model:
-		//	elements+=SourceMapping*;
+		//	elements+=SourceMapping?;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//elements+=SourceMapping*
+		//elements+=SourceMapping?
 		public Assignment getElementsAssignment() { return cElementsAssignment; }
 		
 		//SourceMapping
@@ -247,7 +247,7 @@ public class EncodingLangGrammarAccess extends AbstractGrammarElementFinder {
 
 	
 	//Model:
-	//	elements+=SourceMapping*;
+	//	elements+=SourceMapping?;
 	public ModelElements getModelAccess() {
 		return pModel;
 	}
@@ -280,7 +280,7 @@ public class EncodingLangGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//terminal INPUTCHAR:
-	//	'0x' (('0'..'9' | 'a'..'f') ('0'..'9' | 'a'..'f'))+;
+	//	'0' ('x' | 'X') (('0'..'9' | 'a'..'f' | 'A'..'F') ('0'..'9' | 'a'..'f' | 'A'..'F'))+;
 	public TerminalRule getINPUTCHARRule() {
 		return tINPUTCHAR;
 	}

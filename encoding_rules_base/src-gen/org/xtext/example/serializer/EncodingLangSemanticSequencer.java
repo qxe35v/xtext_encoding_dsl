@@ -101,7 +101,7 @@ public class EncodingLangSemanticSequencer extends AbstractDelegatingSemanticSeq
 	 *     Model returns Model
 	 *
 	 * Constraint:
-	 *     elements+=SourceMapping+
+	 *     elements+=SourceMapping
 	 */
 	protected void sequence_Model(ISerializationContext context, Model semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);

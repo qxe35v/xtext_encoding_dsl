@@ -93,7 +93,7 @@ ruleModel returns [EObject current=null]
 				afterParserOrEnumRuleCall();
 			}
 		)
-	)*
+	)?
 ;
 
 // Entry rule entryRuleSourceMapping
@@ -378,7 +378,7 @@ ruleAlias returns [EObject current=null]
 	)
 ;
 
-RULE_INPUTCHAR : '0x' (('0'..'9'|'a'..'f') ('0'..'9'|'a'..'f'))+;
+RULE_INPUTCHAR : '0' ('x'|'X') (('0'..'9'|'a'..'f'|'A'..'F') ('0'..'9'|'a'..'f'|'A'..'F'))+;
 
 RULE_ID : '^'? ('a'..'z'|'A'..'Z'|'_') ('a'..'z'|'A'..'Z'|'_'|'0'..'9')*;
 

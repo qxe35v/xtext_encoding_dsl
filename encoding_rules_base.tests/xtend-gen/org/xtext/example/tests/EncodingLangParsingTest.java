@@ -183,16 +183,16 @@ public class EncodingLangParsingTest {
       _builder.append("source test{");
       _builder.newLine();
       _builder.append("\t");
-      _builder.append("0xabcd=0xef");
+      _builder.append("0xabCd=0xef");
       _builder.newLine();
       _builder.append("\t");
-      _builder.append("0xa2b4=0xde449c");
+      _builder.append("0xa2B4=0xdE449c");
       _builder.newLine();
       _builder.append("\t");
-      _builder.append("0xaaacda~0xf8ff");
+      _builder.append("0xaaaCDa~0Xf8ff");
       _builder.newLine();
       _builder.append("\t");
-      _builder.append("0xb7~0xf32a6b");
+      _builder.append("0xb7~0xF32a6b");
       _builder.newLine();
       _builder.append("}");
       _builder.newLine();
@@ -234,7 +234,41 @@ public class EncodingLangParsingTest {
       _builder.newLine();
       final Model result = this.parseHelper.parse(_builder);
       Assert.assertNotNull(result);
-      Assert.assertTrue(result.eResource().getErrors().isEmpty());
+      Assert.assertFalse(result.eResource().getErrors().isEmpty());
+    } catch (Throwable _e) {
+      throw Exceptions.sneakyThrow(_e);
+    }
+  }
+  
+  @Test
+  public void noSource() {
+    try {
+      StringConcatenation _builder = new StringConcatenation();
+      final Model result = this.parseHelper.parse(_builder);
+      Assert.assertNull(result);
+    } catch (Throwable _e) {
+      throw Exceptions.sneakyThrow(_e);
+    }
+  }
+  
+  @Test
+  public void justComment() {
+    try {
+      StringConcatenation _builder = new StringConcatenation();
+      _builder.append("//only comment");
+      _builder.newLine();
+      _builder.newLine();
+      _builder.append("/*");
+      _builder.newLine();
+      _builder.append("hello");
+      _builder.newLine();
+      _builder.append("*/");
+      _builder.newLine();
+      _builder.newLine();
+      _builder.append("//last line");
+      _builder.newLine();
+      final Model result = this.parseHelper.parse(_builder);
+      Assert.assertNull(result);
     } catch (Throwable _e) {
       throw Exceptions.sneakyThrow(_e);
     }

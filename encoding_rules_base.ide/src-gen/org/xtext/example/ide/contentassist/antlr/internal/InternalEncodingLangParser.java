@@ -106,47 +106,40 @@ public class InternalEncodingLangParser extends AbstractInternalContentAssistPar
 
 
     // $ANTLR start "ruleModel"
-    // InternalEncodingLang.g:62:1: ruleModel : ( ( rule__Model__ElementsAssignment )* ) ;
+    // InternalEncodingLang.g:62:1: ruleModel : ( ( rule__Model__ElementsAssignment )? ) ;
     public final void ruleModel() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalEncodingLang.g:66:2: ( ( ( rule__Model__ElementsAssignment )* ) )
-            // InternalEncodingLang.g:67:2: ( ( rule__Model__ElementsAssignment )* )
+            // InternalEncodingLang.g:66:2: ( ( ( rule__Model__ElementsAssignment )? ) )
+            // InternalEncodingLang.g:67:2: ( ( rule__Model__ElementsAssignment )? )
             {
-            // InternalEncodingLang.g:67:2: ( ( rule__Model__ElementsAssignment )* )
-            // InternalEncodingLang.g:68:3: ( rule__Model__ElementsAssignment )*
+            // InternalEncodingLang.g:67:2: ( ( rule__Model__ElementsAssignment )? )
+            // InternalEncodingLang.g:68:3: ( rule__Model__ElementsAssignment )?
             {
              before(grammarAccess.getModelAccess().getElementsAssignment()); 
-            // InternalEncodingLang.g:69:3: ( rule__Model__ElementsAssignment )*
-            loop1:
-            do {
-                int alt1=2;
-                int LA1_0 = input.LA(1);
+            // InternalEncodingLang.g:69:3: ( rule__Model__ElementsAssignment )?
+            int alt1=2;
+            int LA1_0 = input.LA(1);
 
-                if ( (LA1_0==12) ) {
-                    alt1=1;
-                }
+            if ( (LA1_0==12) ) {
+                alt1=1;
+            }
+            switch (alt1) {
+                case 1 :
+                    // InternalEncodingLang.g:69:4: rule__Model__ElementsAssignment
+                    {
+                    pushFollow(FOLLOW_2);
+                    rule__Model__ElementsAssignment();
 
-
-                switch (alt1) {
-            	case 1 :
-            	    // InternalEncodingLang.g:69:4: rule__Model__ElementsAssignment
-            	    {
-            	    pushFollow(FOLLOW_3);
-            	    rule__Model__ElementsAssignment();
-
-            	    state._fsp--;
+                    state._fsp--;
 
 
-            	    }
-            	    break;
+                    }
+                    break;
 
-            	default :
-            	    break loop1;
-                }
-            } while (true);
+            }
 
              after(grammarAccess.getModelAccess().getElementsAssignment()); 
 
@@ -569,11 +562,11 @@ public class InternalEncodingLangParser extends AbstractInternalContentAssistPar
             if ( (LA2_0==RULE_INPUTCHAR) ) {
                 int LA2_1 = input.LA(2);
 
-                if ( (LA2_1==15) ) {
-                    alt2=1;
-                }
-                else if ( (LA2_1==16) ) {
+                if ( (LA2_1==16) ) {
                     alt2=2;
+                }
+                else if ( (LA2_1==15) ) {
+                    alt2=1;
                 }
                 else {
                     NoViableAltException nvae =
@@ -654,7 +647,7 @@ public class InternalEncodingLangParser extends AbstractInternalContentAssistPar
             // InternalEncodingLang.g:227:1: ( rule__SourceMapping__Group__0__Impl rule__SourceMapping__Group__1 )
             // InternalEncodingLang.g:228:2: rule__SourceMapping__Group__0__Impl rule__SourceMapping__Group__1
             {
-            pushFollow(FOLLOW_4);
+            pushFollow(FOLLOW_3);
             rule__SourceMapping__Group__0__Impl();
 
             state._fsp--;
@@ -729,7 +722,7 @@ public class InternalEncodingLangParser extends AbstractInternalContentAssistPar
             // InternalEncodingLang.g:254:1: ( rule__SourceMapping__Group__1__Impl rule__SourceMapping__Group__2 )
             // InternalEncodingLang.g:255:2: rule__SourceMapping__Group__1__Impl rule__SourceMapping__Group__2
             {
-            pushFollow(FOLLOW_5);
+            pushFollow(FOLLOW_4);
             rule__SourceMapping__Group__1__Impl();
 
             state._fsp--;
@@ -814,7 +807,7 @@ public class InternalEncodingLangParser extends AbstractInternalContentAssistPar
             // InternalEncodingLang.g:281:1: ( rule__SourceMapping__Group__2__Impl rule__SourceMapping__Group__3 )
             // InternalEncodingLang.g:282:2: rule__SourceMapping__Group__2__Impl rule__SourceMapping__Group__3
             {
-            pushFollow(FOLLOW_6);
+            pushFollow(FOLLOW_5);
             rule__SourceMapping__Group__2__Impl();
 
             state._fsp--;
@@ -889,7 +882,7 @@ public class InternalEncodingLangParser extends AbstractInternalContentAssistPar
             // InternalEncodingLang.g:308:1: ( rule__SourceMapping__Group__3__Impl rule__SourceMapping__Group__4 )
             // InternalEncodingLang.g:309:2: rule__SourceMapping__Group__3__Impl rule__SourceMapping__Group__4
             {
-            pushFollow(FOLLOW_6);
+            pushFollow(FOLLOW_5);
             rule__SourceMapping__Group__3__Impl();
 
             state._fsp--;
@@ -946,7 +939,7 @@ public class InternalEncodingLangParser extends AbstractInternalContentAssistPar
             	case 1 :
             	    // InternalEncodingLang.g:323:3: rule__SourceMapping__AliasesAssignment_3
             	    {
-            	    pushFollow(FOLLOW_7);
+            	    pushFollow(FOLLOW_6);
             	    rule__SourceMapping__AliasesAssignment_3();
 
             	    state._fsp--;
@@ -992,7 +985,7 @@ public class InternalEncodingLangParser extends AbstractInternalContentAssistPar
             // InternalEncodingLang.g:335:1: ( rule__SourceMapping__Group__4__Impl rule__SourceMapping__Group__5 )
             // InternalEncodingLang.g:336:2: rule__SourceMapping__Group__4__Impl rule__SourceMapping__Group__5
             {
-            pushFollow(FOLLOW_6);
+            pushFollow(FOLLOW_5);
             rule__SourceMapping__Group__4__Impl();
 
             state._fsp--;
@@ -1049,7 +1042,7 @@ public class InternalEncodingLangParser extends AbstractInternalContentAssistPar
             	case 1 :
             	    // InternalEncodingLang.g:350:3: rule__SourceMapping__MappingsAssignment_4
             	    {
-            	    pushFollow(FOLLOW_8);
+            	    pushFollow(FOLLOW_7);
             	    rule__SourceMapping__MappingsAssignment_4();
 
             	    state._fsp--;
@@ -1165,7 +1158,7 @@ public class InternalEncodingLangParser extends AbstractInternalContentAssistPar
             // InternalEncodingLang.g:389:1: ( rule__ExactMapping__Group__0__Impl rule__ExactMapping__Group__1 )
             // InternalEncodingLang.g:390:2: rule__ExactMapping__Group__0__Impl rule__ExactMapping__Group__1
             {
-            pushFollow(FOLLOW_9);
+            pushFollow(FOLLOW_8);
             rule__ExactMapping__Group__0__Impl();
 
             state._fsp--;
@@ -1250,7 +1243,7 @@ public class InternalEncodingLangParser extends AbstractInternalContentAssistPar
             // InternalEncodingLang.g:416:1: ( rule__ExactMapping__Group__1__Impl rule__ExactMapping__Group__2 )
             // InternalEncodingLang.g:417:2: rule__ExactMapping__Group__1__Impl rule__ExactMapping__Group__2
             {
-            pushFollow(FOLLOW_10);
+            pushFollow(FOLLOW_9);
             rule__ExactMapping__Group__1__Impl();
 
             state._fsp--;
@@ -1405,7 +1398,7 @@ public class InternalEncodingLangParser extends AbstractInternalContentAssistPar
             // InternalEncodingLang.g:470:1: ( rule__TransliterationMapping__Group__0__Impl rule__TransliterationMapping__Group__1 )
             // InternalEncodingLang.g:471:2: rule__TransliterationMapping__Group__0__Impl rule__TransliterationMapping__Group__1
             {
-            pushFollow(FOLLOW_11);
+            pushFollow(FOLLOW_10);
             rule__TransliterationMapping__Group__0__Impl();
 
             state._fsp--;
@@ -1490,7 +1483,7 @@ public class InternalEncodingLangParser extends AbstractInternalContentAssistPar
             // InternalEncodingLang.g:497:1: ( rule__TransliterationMapping__Group__1__Impl rule__TransliterationMapping__Group__2 )
             // InternalEncodingLang.g:498:2: rule__TransliterationMapping__Group__1__Impl rule__TransliterationMapping__Group__2
             {
-            pushFollow(FOLLOW_10);
+            pushFollow(FOLLOW_9);
             rule__TransliterationMapping__Group__1__Impl();
 
             state._fsp--;
@@ -1645,7 +1638,7 @@ public class InternalEncodingLangParser extends AbstractInternalContentAssistPar
             // InternalEncodingLang.g:551:1: ( rule__Alias__Group__0__Impl rule__Alias__Group__1 )
             // InternalEncodingLang.g:552:2: rule__Alias__Group__0__Impl rule__Alias__Group__1
             {
-            pushFollow(FOLLOW_4);
+            pushFollow(FOLLOW_3);
             rule__Alias__Group__0__Impl();
 
             state._fsp--;
@@ -2141,14 +2134,13 @@ public class InternalEncodingLangParser extends AbstractInternalContentAssistPar
 
     public static final BitSet FOLLOW_1 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_2 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_3 = new BitSet(new long[]{0x0000000000001002L});
-    public static final BitSet FOLLOW_4 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_5 = new BitSet(new long[]{0x0000000000002000L});
-    public static final BitSet FOLLOW_6 = new BitSet(new long[]{0x0000000000024020L});
-    public static final BitSet FOLLOW_7 = new BitSet(new long[]{0x0000000000020002L});
-    public static final BitSet FOLLOW_8 = new BitSet(new long[]{0x0000000000000022L});
-    public static final BitSet FOLLOW_9 = new BitSet(new long[]{0x0000000000008000L});
-    public static final BitSet FOLLOW_10 = new BitSet(new long[]{0x0000000000000020L});
-    public static final BitSet FOLLOW_11 = new BitSet(new long[]{0x0000000000010000L});
+    public static final BitSet FOLLOW_3 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_4 = new BitSet(new long[]{0x0000000000002000L});
+    public static final BitSet FOLLOW_5 = new BitSet(new long[]{0x0000000000024020L});
+    public static final BitSet FOLLOW_6 = new BitSet(new long[]{0x0000000000020002L});
+    public static final BitSet FOLLOW_7 = new BitSet(new long[]{0x0000000000000022L});
+    public static final BitSet FOLLOW_8 = new BitSet(new long[]{0x0000000000008000L});
+    public static final BitSet FOLLOW_9 = new BitSet(new long[]{0x0000000000000020L});
+    public static final BitSet FOLLOW_10 = new BitSet(new long[]{0x0000000000010000L});
 
 }

@@ -168,28 +168,36 @@ public class InternalEncodingLangLexer extends Lexer {
         try {
             int _type = RULE_INPUTCHAR;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalEncodingLang.g:381:16: ( '0x' ( ( '0' .. '9' | 'a' .. 'f' ) ( '0' .. '9' | 'a' .. 'f' ) )+ )
-            // InternalEncodingLang.g:381:18: '0x' ( ( '0' .. '9' | 'a' .. 'f' ) ( '0' .. '9' | 'a' .. 'f' ) )+
+            // InternalEncodingLang.g:381:16: ( '0' ( 'x' | 'X' ) ( ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' ) ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' ) )+ )
+            // InternalEncodingLang.g:381:18: '0' ( 'x' | 'X' ) ( ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' ) ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' ) )+
             {
-            match("0x"); 
+            match('0'); 
+            if ( input.LA(1)=='X'||input.LA(1)=='x' ) {
+                input.consume();
 
-            // InternalEncodingLang.g:381:23: ( ( '0' .. '9' | 'a' .. 'f' ) ( '0' .. '9' | 'a' .. 'f' ) )+
+            }
+            else {
+                MismatchedSetException mse = new MismatchedSetException(null,input);
+                recover(mse);
+                throw mse;}
+
+            // InternalEncodingLang.g:381:32: ( ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' ) ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' ) )+
             int cnt1=0;
             loop1:
             do {
                 int alt1=2;
                 int LA1_0 = input.LA(1);
 
-                if ( ((LA1_0>='0' && LA1_0<='9')||(LA1_0>='a' && LA1_0<='f')) ) {
+                if ( ((LA1_0>='0' && LA1_0<='9')||(LA1_0>='A' && LA1_0<='F')||(LA1_0>='a' && LA1_0<='f')) ) {
                     alt1=1;
                 }
 
 
                 switch (alt1) {
             	case 1 :
-            	    // InternalEncodingLang.g:381:24: ( '0' .. '9' | 'a' .. 'f' ) ( '0' .. '9' | 'a' .. 'f' )
+            	    // InternalEncodingLang.g:381:33: ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' ) ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' )
             	    {
-            	    if ( (input.LA(1)>='0' && input.LA(1)<='9')||(input.LA(1)>='a' && input.LA(1)<='f') ) {
+            	    if ( (input.LA(1)>='0' && input.LA(1)<='9')||(input.LA(1)>='A' && input.LA(1)<='F')||(input.LA(1)>='a' && input.LA(1)<='f') ) {
             	        input.consume();
 
             	    }
@@ -198,7 +206,7 @@ public class InternalEncodingLangLexer extends Lexer {
             	        recover(mse);
             	        throw mse;}
 
-            	    if ( (input.LA(1)>='0' && input.LA(1)<='9')||(input.LA(1)>='a' && input.LA(1)<='f') ) {
+            	    if ( (input.LA(1)>='0' && input.LA(1)<='9')||(input.LA(1)>='A' && input.LA(1)<='F')||(input.LA(1)>='a' && input.LA(1)<='f') ) {
             	        input.consume();
 
             	    }
@@ -844,7 +852,7 @@ public class InternalEncodingLangLexer extends Lexer {
     static final String DFA13_eofS =
         "\46\uffff";
     static final String DFA13_minS =
-        "\1\0\1\157\4\uffff\1\154\1\170\1\101\2\uffff\2\0\1\52\2\uffff\1\165\5\uffff\1\151\6\uffff\1\162\1\141\1\143\1\163\1\145\2\60\2\uffff";
+        "\1\0\1\157\4\uffff\1\154\1\130\1\101\2\uffff\2\0\1\52\2\uffff\1\165\5\uffff\1\151\6\uffff\1\162\1\141\1\143\1\163\1\145\2\60\2\uffff";
     static final String DFA13_maxS =
         "\1\uffff\1\157\4\uffff\1\154\1\170\1\172\2\uffff\2\uffff\1\57\2\uffff\1\165\5\uffff\1\151\6\uffff\1\162\1\141\1\143\1\163\1\145\2\172\2\uffff";
     static final String DFA13_acceptS =
@@ -859,7 +867,7 @@ public class InternalEncodingLangLexer extends Lexer {
             "",
             "",
             "\1\26",
-            "\1\27",
+            "\1\27\37\uffff\1\27",
             "\32\21\4\uffff\1\21\1\uffff\32\21",
             "",
             "",

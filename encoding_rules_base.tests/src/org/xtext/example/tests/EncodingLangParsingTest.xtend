@@ -101,10 +101,10 @@ class EncodingLangParsingTest {
 	def void multipleMapping_MultipleBytes() {
 		val result = parseHelper.parse('''
 			source test{
-				0xabcd=0xef
-				0xa2b4=0xde449c
-				0xaaacda~0xf8ff
-				0xb7~0xf32a6b
+				0xabCd=0xef
+				0xa2B4=0xdE449c
+				0xaaaCDa~0Xf8ff
+				0xb7~0xF32a6b
 			}
 		''')
 		Assert.assertNotNull(result)
@@ -125,6 +125,26 @@ class EncodingLangParsingTest {
 			}
 		''')
 		Assert.assertNotNull(result)
-		Assert.assertTrue(result.eResource.errors.isEmpty)
+		Assert.assertFalse(result.eResource.errors.isEmpty)
+	}
+	
+	@Test
+	def void noSource() {
+		val result = parseHelper.parse('''''')
+		Assert.assertNull(result)
+	}
+	
+	@Test
+	def void justComment() {
+		val result = parseHelper.parse('''
+			//only comment
+			
+			/*
+			hello
+			*/
+			
+			//last line
+		''')
+		Assert.assertNull(result)
 	}
 }
