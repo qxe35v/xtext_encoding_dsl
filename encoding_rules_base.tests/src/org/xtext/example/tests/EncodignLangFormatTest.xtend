@@ -16,22 +16,33 @@ class EncodignLangFormatTest {
 	def void formatting() {
 		assertFormatted[
 			toBeFormatted = '''
-				//comment
-				
-				source someEncodingName{
-				alias anAliasName alias /*dads */ 	anotherAliasName
-					0x0001 =0x0012 //exact
-				0x0002~0x0954
-				
+				source test {
+							// need alias
+					target a{
+							0xabcd = 0xef
+					0xa2b4 = 0xde449c
+					}
 				}
+				source test2 {
+					alias test2alias target b {
+					0xaaacda ~ 0xf8ff
+					0xb7 ~ 0xf32a6b
+					}}
 			'''
 			expectation = '''
-				//comment
-				source someEncodingName {
-					alias anAliasName
-					alias /*dads */ anotherAliasName
-					0x0001 = 0x0012 // exact
-					0x0002 ~ 0x0954
+				source test {
+					// need alias
+					target a {
+						0xabcd = 0xef
+						0xa2b4 = 0xde449c
+					}
+				}
+				source test2 {
+					alias test2alias
+					target b {
+						0xaaacda ~ 0xf8ff
+						0xb7 ~ 0xf32a6b
+					}
 				}
 			'''
 		]

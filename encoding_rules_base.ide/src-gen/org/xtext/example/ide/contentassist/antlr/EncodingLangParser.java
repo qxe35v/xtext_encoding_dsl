@@ -33,13 +33,16 @@ public class EncodingLangParser extends AbstractContentAssistParser {
 				{
 					put(grammarAccess.getMappingAccess().getAlternatives(), "rule__Mapping__Alternatives");
 					put(grammarAccess.getSourceMappingAccess().getGroup(), "rule__SourceMapping__Group__0");
+					put(grammarAccess.getConversionAccess().getGroup(), "rule__Conversion__Group__0");
 					put(grammarAccess.getExactMappingAccess().getGroup(), "rule__ExactMapping__Group__0");
 					put(grammarAccess.getTransliterationMappingAccess().getGroup(), "rule__TransliterationMapping__Group__0");
 					put(grammarAccess.getAliasAccess().getGroup(), "rule__Alias__Group__0");
 					put(grammarAccess.getModelAccess().getElementsAssignment(), "rule__Model__ElementsAssignment");
 					put(grammarAccess.getSourceMappingAccess().getNameAssignment_1(), "rule__SourceMapping__NameAssignment_1");
 					put(grammarAccess.getSourceMappingAccess().getAliasesAssignment_3(), "rule__SourceMapping__AliasesAssignment_3");
-					put(grammarAccess.getSourceMappingAccess().getMappingsAssignment_4(), "rule__SourceMapping__MappingsAssignment_4");
+					put(grammarAccess.getSourceMappingAccess().getConversionsAssignment_4(), "rule__SourceMapping__ConversionsAssignment_4");
+					put(grammarAccess.getConversionAccess().getNameAssignment_1(), "rule__Conversion__NameAssignment_1");
+					put(grammarAccess.getConversionAccess().getMappingsAssignment_3(), "rule__Conversion__MappingsAssignment_3");
 					put(grammarAccess.getExactMappingAccess().getFromAssignment_0(), "rule__ExactMapping__FromAssignment_0");
 					put(grammarAccess.getExactMappingAccess().getToAssignment_2(), "rule__ExactMapping__ToAssignment_2");
 					put(grammarAccess.getTransliterationMappingAccess().getFromAssignment_0(), "rule__TransliterationMapping__FromAssignment_0");

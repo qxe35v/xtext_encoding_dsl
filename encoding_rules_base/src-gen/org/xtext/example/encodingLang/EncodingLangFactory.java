@@ -42,6 +42,15 @@ public interface EncodingLangFactory extends EFactory
   SourceMapping createSourceMapping();
 
   /**
+   * Returns a new object of class '<em>Conversion</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Conversion</em>'.
+   * @generated
+   */
+  Conversion createConversion();
+
+  /**
    * Returns a new object of class '<em>Mapping</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->

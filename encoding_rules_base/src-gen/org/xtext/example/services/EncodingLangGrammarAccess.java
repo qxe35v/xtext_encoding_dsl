@@ -28,10 +28,10 @@ public class EncodingLangGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cElementsSourceMappingParserRuleCall_0 = (RuleCall)cElementsAssignment.eContents().get(0);
 		
 		//Model:
-		//	elements+=SourceMapping?;
+		//	elements+=SourceMapping*;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//elements+=SourceMapping?
+		//elements+=SourceMapping*
 		public Assignment getElementsAssignment() { return cElementsAssignment; }
 		
 		//SourceMapping
@@ -46,18 +46,18 @@ public class EncodingLangGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cLeftCurlyBracketKeyword_2 = (Keyword)cGroup.eContents().get(2);
 		private final Assignment cAliasesAssignment_3 = (Assignment)cGroup.eContents().get(3);
 		private final RuleCall cAliasesAliasParserRuleCall_3_0 = (RuleCall)cAliasesAssignment_3.eContents().get(0);
-		private final Assignment cMappingsAssignment_4 = (Assignment)cGroup.eContents().get(4);
-		private final RuleCall cMappingsMappingParserRuleCall_4_0 = (RuleCall)cMappingsAssignment_4.eContents().get(0);
+		private final Assignment cConversionsAssignment_4 = (Assignment)cGroup.eContents().get(4);
+		private final RuleCall cConversionsConversionParserRuleCall_4_0 = (RuleCall)cConversionsAssignment_4.eContents().get(0);
 		private final Keyword cRightCurlyBracketKeyword_5 = (Keyword)cGroup.eContents().get(5);
 		
 		//SourceMapping:
 		//	"source" name=ID "{"
 		//	aliases+=Alias*
-		//	mappings+=Mapping*
+		//	conversions+=Conversion*
 		//	"}";
 		@Override public ParserRule getRule() { return rule; }
 		
-		//"source" name=ID "{" aliases+=Alias* mappings+=Mapping* "}"
+		//"source" name=ID "{" aliases+=Alias* conversions+=Conversion* "}"
 		public Group getGroup() { return cGroup; }
 		
 		//"source"
@@ -78,14 +78,55 @@ public class EncodingLangGrammarAccess extends AbstractGrammarElementFinder {
 		//Alias
 		public RuleCall getAliasesAliasParserRuleCall_3_0() { return cAliasesAliasParserRuleCall_3_0; }
 		
-		//mappings+=Mapping*
-		public Assignment getMappingsAssignment_4() { return cMappingsAssignment_4; }
+		//conversions+=Conversion*
+		public Assignment getConversionsAssignment_4() { return cConversionsAssignment_4; }
 		
-		//Mapping
-		public RuleCall getMappingsMappingParserRuleCall_4_0() { return cMappingsMappingParserRuleCall_4_0; }
+		//Conversion
+		public RuleCall getConversionsConversionParserRuleCall_4_0() { return cConversionsConversionParserRuleCall_4_0; }
 		
 		//"}"
 		public Keyword getRightCurlyBracketKeyword_5() { return cRightCurlyBracketKeyword_5; }
+	}
+	public class ConversionElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.xtext.example.EncodingLang.Conversion");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Keyword cTargetKeyword_0 = (Keyword)cGroup.eContents().get(0);
+		private final Assignment cNameAssignment_1 = (Assignment)cGroup.eContents().get(1);
+		private final RuleCall cNameIDTerminalRuleCall_1_0 = (RuleCall)cNameAssignment_1.eContents().get(0);
+		private final Keyword cLeftCurlyBracketKeyword_2 = (Keyword)cGroup.eContents().get(2);
+		private final Assignment cMappingsAssignment_3 = (Assignment)cGroup.eContents().get(3);
+		private final RuleCall cMappingsMappingParserRuleCall_3_0 = (RuleCall)cMappingsAssignment_3.eContents().get(0);
+		private final Keyword cRightCurlyBracketKeyword_4 = (Keyword)cGroup.eContents().get(4);
+		
+		//Conversion:
+		//	"target" name=ID "{"
+		//	mappings+=Mapping*
+		//	"}";
+		@Override public ParserRule getRule() { return rule; }
+		
+		//"target" name=ID "{" mappings+=Mapping* "}"
+		public Group getGroup() { return cGroup; }
+		
+		//"target"
+		public Keyword getTargetKeyword_0() { return cTargetKeyword_0; }
+		
+		//name=ID
+		public Assignment getNameAssignment_1() { return cNameAssignment_1; }
+		
+		//ID
+		public RuleCall getNameIDTerminalRuleCall_1_0() { return cNameIDTerminalRuleCall_1_0; }
+		
+		//"{"
+		public Keyword getLeftCurlyBracketKeyword_2() { return cLeftCurlyBracketKeyword_2; }
+		
+		//mappings+=Mapping*
+		public Assignment getMappingsAssignment_3() { return cMappingsAssignment_3; }
+		
+		//Mapping
+		public RuleCall getMappingsMappingParserRuleCall_3_0() { return cMappingsMappingParserRuleCall_3_0; }
+		
+		//"}"
+		public Keyword getRightCurlyBracketKeyword_4() { return cRightCurlyBracketKeyword_4; }
 	}
 	public class MappingElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.xtext.example.EncodingLang.Mapping");
@@ -195,11 +236,12 @@ public class EncodingLangGrammarAccess extends AbstractGrammarElementFinder {
 	
 	private final ModelElements pModel;
 	private final SourceMappingElements pSourceMapping;
+	private final ConversionElements pConversion;
 	private final MappingElements pMapping;
-	private final TerminalRule tINPUTCHAR;
 	private final ExactMappingElements pExactMapping;
 	private final TransliterationMappingElements pTransliterationMapping;
 	private final AliasElements pAlias;
+	private final TerminalRule tINPUTCHAR;
 	
 	private final Grammar grammar;
 	
@@ -212,11 +254,12 @@ public class EncodingLangGrammarAccess extends AbstractGrammarElementFinder {
 		this.gaTerminals = gaTerminals;
 		this.pModel = new ModelElements();
 		this.pSourceMapping = new SourceMappingElements();
+		this.pConversion = new ConversionElements();
 		this.pMapping = new MappingElements();
-		this.tINPUTCHAR = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "org.xtext.example.EncodingLang.INPUTCHAR");
 		this.pExactMapping = new ExactMappingElements();
 		this.pTransliterationMapping = new TransliterationMappingElements();
 		this.pAlias = new AliasElements();
+		this.tINPUTCHAR = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "org.xtext.example.EncodingLang.INPUTCHAR");
 	}
 	
 	protected Grammar internalFindGrammar(GrammarProvider grammarProvider) {
@@ -247,7 +290,7 @@ public class EncodingLangGrammarAccess extends AbstractGrammarElementFinder {
 
 	
 	//Model:
-	//	elements+=SourceMapping?;
+	//	elements+=SourceMapping*;
 	public ModelElements getModelAccess() {
 		return pModel;
 	}
@@ -259,7 +302,7 @@ public class EncodingLangGrammarAccess extends AbstractGrammarElementFinder {
 	//SourceMapping:
 	//	"source" name=ID "{"
 	//	aliases+=Alias*
-	//	mappings+=Mapping*
+	//	conversions+=Conversion*
 	//	"}";
 	public SourceMappingElements getSourceMappingAccess() {
 		return pSourceMapping;
@@ -267,6 +310,18 @@ public class EncodingLangGrammarAccess extends AbstractGrammarElementFinder {
 	
 	public ParserRule getSourceMappingRule() {
 		return getSourceMappingAccess().getRule();
+	}
+	
+	//Conversion:
+	//	"target" name=ID "{"
+	//	mappings+=Mapping*
+	//	"}";
+	public ConversionElements getConversionAccess() {
+		return pConversion;
+	}
+	
+	public ParserRule getConversionRule() {
+		return getConversionAccess().getRule();
 	}
 	
 	//Mapping:
@@ -277,12 +332,6 @@ public class EncodingLangGrammarAccess extends AbstractGrammarElementFinder {
 	
 	public ParserRule getMappingRule() {
 		return getMappingAccess().getRule();
-	}
-	
-	//terminal INPUTCHAR:
-	//	'0' ('x' | 'X') (('0'..'9' | 'a'..'f' | 'A'..'F') ('0'..'9' | 'a'..'f' | 'A'..'F'))+;
-	public TerminalRule getINPUTCHARRule() {
-		return tINPUTCHAR;
 	}
 	
 	//ExactMapping:
@@ -313,6 +362,12 @@ public class EncodingLangGrammarAccess extends AbstractGrammarElementFinder {
 	
 	public ParserRule getAliasRule() {
 		return getAliasAccess().getRule();
+	}
+	
+	//terminal INPUTCHAR:
+	//	'0' ('x' | 'X') (('0'..'9' | 'a'..'f' | 'A'..'F') ('0'..'9' | 'a'..'f' | 'A'..'F'))+;
+	public TerminalRule getINPUTCHARRule() {
+		return tINPUTCHAR;
 	}
 	
 	//terminal ID:

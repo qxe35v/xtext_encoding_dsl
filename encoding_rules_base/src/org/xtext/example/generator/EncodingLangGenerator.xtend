@@ -22,7 +22,7 @@ class EncodingLangGenerator extends AbstractGenerator {
 //				.filter(Greeting)
 //				.map[name]
 //				.join(', '))
-		fsa.generateFile(resource.toString()+".txt", resource.generate )
+		//fsa.generateFile(resource.toString()+".txt", resource.generate )
 	}
 	
 	def generate(Resource r) '''
@@ -49,15 +49,15 @@ class EncodingLangGenerator extends AbstractGenerator {
 		hashtable* unit_lenghts(){
 			hashtable* unit_lengths = hashtable_init(128, sizeof(char**), sizeof(uint8_t));
 			«FOR s: r.allContents.toIterable.filter(SourceMapping)»
-				uint8_t length_«s.name» = «s.mappings.get(0).from.length»;
-				hashtable_put(unit_lengths,&encoding_«s.name»,&length_«s.name»)
+				uint8_t length_«s.name» = «s.conversions.get(0).mappings.get(0).from.length»;
+				hashtable_put(unit_lengths,&encoding_«s.name»,&length_«s.name»);
 			«ENDFOR»
 		
 		return unit_lengths;
 		}
 		
 		hashtable* mappings(){
-			hashtable* mappings = hashtable_init(128, 
+			 
 		}
 		
 	'''

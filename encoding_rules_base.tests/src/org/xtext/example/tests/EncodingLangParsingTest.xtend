@@ -57,11 +57,13 @@ class EncodingLangParsingTest {
 	def void multipleMapping_2Bytes_NumOnly() {
 		val result = parseHelper.parse('''
 			source test{
-				0x1122=0x1234
-				0x4567~0x8593
-				0x1568=0x2114
-				0x6574=0x9435
-				0x5769~0x1286
+				target a{
+					0x1122=0x1234
+					0x4567~0x8593
+					0x1568=0x2114
+					0x6574=0x9435
+					0x5769~0x1286
+				}
 			}
 		''')
 		Assert.assertNotNull(result)
@@ -86,25 +88,13 @@ class EncodingLangParsingTest {
 	@Test
 	def void multipleMapping_2Bytes() {
 		val result = parseHelper.parse('''
-			source test{
-				0xabcd=0xefef
-				/*0xa2b4=0xde9c
-				  0xaaaa~0xffff
-				  0xb78c~0xf32a*/
-			}
-		''')
-		Assert.assertNotNull(result)
-		Assert.assertTrue(result.eResource.errors.isEmpty)
-	}
-
-	@Test
-	def void multipleMapping_MultipleBytes() {
-		val result = parseHelper.parse('''
-			source test{
-				0xabCd=0xef
-				0xa2B4=0xdE449c
-				0xaaaCDa~0Xf8ff
-				0xb7~0xF32a6b
+			source test {
+				target a {
+					0xabcd=0xefef
+					0xa2b4=0xde9c
+					0xaaaa~0xffff
+					0xb78c~0xf32a
+				}
 			}
 		''')
 		Assert.assertNotNull(result)
@@ -116,16 +106,19 @@ class EncodingLangParsingTest {
 		val result = parseHelper.parse('''
 			source test{
 				//need alias
+				target a{
 				0xabcd=0xef
-				0xa2b4=0xde449c}
+				0xa2b4=0xde449c
+				}}
 			source test2{
 				alias test2alias
+				target b{
 				0xaaacda~0xf8ff
 				0xb7~0xf32a6b
-			}
+				}}
 		''')
 		Assert.assertNotNull(result)
-		Assert.assertFalse(result.eResource.errors.isEmpty)
+		Assert.assertTrue(result.eResource.errors.isEmpty)
 	}
 	
 	@Test

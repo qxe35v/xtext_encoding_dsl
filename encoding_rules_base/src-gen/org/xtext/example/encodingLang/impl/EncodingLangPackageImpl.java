@@ -11,6 +11,7 @@ import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.impl.EPackageImpl;
 
 import org.xtext.example.encodingLang.Alias;
+import org.xtext.example.encodingLang.Conversion;
 import org.xtext.example.encodingLang.EncodingLangFactory;
 import org.xtext.example.encodingLang.EncodingLangPackage;
 import org.xtext.example.encodingLang.ExactMapping;
@@ -40,6 +41,13 @@ public class EncodingLangPackageImpl extends EPackageImpl implements EncodingLan
    * @generated
    */
   private EClass sourceMappingEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass conversionEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -187,9 +195,39 @@ public class EncodingLangPackageImpl extends EPackageImpl implements EncodingLan
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getSourceMapping_Mappings()
+  public EReference getSourceMapping_Conversions()
   {
     return (EReference)sourceMappingEClass.getEStructuralFeatures().get(2);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getConversion()
+  {
+    return conversionEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getConversion_Name()
+  {
+    return (EAttribute)conversionEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getConversion_Mappings()
+  {
+    return (EReference)conversionEClass.getEStructuralFeatures().get(1);
   }
 
   /**
@@ -298,7 +336,11 @@ public class EncodingLangPackageImpl extends EPackageImpl implements EncodingLan
     sourceMappingEClass = createEClass(SOURCE_MAPPING);
     createEAttribute(sourceMappingEClass, SOURCE_MAPPING__NAME);
     createEReference(sourceMappingEClass, SOURCE_MAPPING__ALIASES);
-    createEReference(sourceMappingEClass, SOURCE_MAPPING__MAPPINGS);
+    createEReference(sourceMappingEClass, SOURCE_MAPPING__CONVERSIONS);
+
+    conversionEClass = createEClass(CONVERSION);
+    createEAttribute(conversionEClass, CONVERSION__NAME);
+    createEReference(conversionEClass, CONVERSION__MAPPINGS);
 
     mappingEClass = createEClass(MAPPING);
     createEAttribute(mappingEClass, MAPPING__FROM);
@@ -351,7 +393,11 @@ public class EncodingLangPackageImpl extends EPackageImpl implements EncodingLan
     initEClass(sourceMappingEClass, SourceMapping.class, "SourceMapping", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getSourceMapping_Name(), ecorePackage.getEString(), "name", null, 0, 1, SourceMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getSourceMapping_Aliases(), this.getAlias(), null, "aliases", null, 0, -1, SourceMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getSourceMapping_Mappings(), this.getMapping(), null, "mappings", null, 0, -1, SourceMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getSourceMapping_Conversions(), this.getConversion(), null, "conversions", null, 0, -1, SourceMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(conversionEClass, Conversion.class, "Conversion", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getConversion_Name(), ecorePackage.getEString(), "name", null, 0, 1, Conversion.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getConversion_Mappings(), this.getMapping(), null, "mappings", null, 0, -1, Conversion.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(mappingEClass, Mapping.class, "Mapping", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getMapping_From(), ecorePackage.getEString(), "from", null, 0, 1, Mapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

@@ -15,6 +15,7 @@ import org.eclipse.xtext.serializer.acceptor.SequenceFeeder;
 import org.eclipse.xtext.serializer.sequencer.AbstractDelegatingSemanticSequencer;
 import org.eclipse.xtext.serializer.sequencer.ITransientValueService.ValueTransient;
 import org.xtext.example.encodingLang.Alias;
+import org.xtext.example.encodingLang.Conversion;
 import org.xtext.example.encodingLang.EncodingLangPackage;
 import org.xtext.example.encodingLang.ExactMapping;
 import org.xtext.example.encodingLang.Model;
@@ -38,6 +39,9 @@ public class EncodingLangSemanticSequencer extends AbstractDelegatingSemanticSeq
 			switch (semanticObject.eClass().getClassifierID()) {
 			case EncodingLangPackage.ALIAS:
 				sequence_Alias(context, (Alias) semanticObject); 
+				return; 
+			case EncodingLangPackage.CONVERSION:
+				sequence_Conversion(context, (Conversion) semanticObject); 
 				return; 
 			case EncodingLangPackage.EXACT_MAPPING:
 				sequence_ExactMapping(context, (ExactMapping) semanticObject); 
@@ -76,6 +80,18 @@ public class EncodingLangSemanticSequencer extends AbstractDelegatingSemanticSeq
 	
 	/**
 	 * Contexts:
+	 *     Conversion returns Conversion
+	 *
+	 * Constraint:
+	 *     (name=ID mappings+=Mapping*)
+	 */
+	protected void sequence_Conversion(ISerializationContext context, Conversion semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Contexts:
 	 *     Mapping returns ExactMapping
 	 *     ExactMapping returns ExactMapping
 	 *
@@ -101,7 +117,7 @@ public class EncodingLangSemanticSequencer extends AbstractDelegatingSemanticSeq
 	 *     Model returns Model
 	 *
 	 * Constraint:
-	 *     elements+=SourceMapping
+	 *     elements+=SourceMapping+
 	 */
 	protected void sequence_Model(ISerializationContext context, Model semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -113,7 +129,7 @@ public class EncodingLangSemanticSequencer extends AbstractDelegatingSemanticSeq
 	 *     SourceMapping returns SourceMapping
 	 *
 	 * Constraint:
-	 *     (name=ID aliases+=Alias* mappings+=Mapping*)
+	 *     (name=ID aliases+=Alias* conversions+=Conversion*)
 	 */
 	protected void sequence_SourceMapping(ISerializationContext context, SourceMapping semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);

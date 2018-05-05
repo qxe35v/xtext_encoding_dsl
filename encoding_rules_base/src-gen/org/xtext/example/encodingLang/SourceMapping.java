@@ -18,7 +18,7 @@ import org.eclipse.emf.ecore.EObject;
  * <ul>
  *   <li>{@link org.xtext.example.encodingLang.SourceMapping#getName <em>Name</em>}</li>
  *   <li>{@link org.xtext.example.encodingLang.SourceMapping#getAliases <em>Aliases</em>}</li>
- *   <li>{@link org.xtext.example.encodingLang.SourceMapping#getMappings <em>Mappings</em>}</li>
+ *   <li>{@link org.xtext.example.encodingLang.SourceMapping#getConversions <em>Conversions</em>}</li>
  * </ul>
  *
  * @see org.xtext.example.encodingLang.EncodingLangPackage#getSourceMapping()
@@ -70,19 +70,19 @@ public interface SourceMapping extends EObject
   EList<Alias> getAliases();
 
   /**
-   * Returns the value of the '<em><b>Mappings</b></em>' containment reference list.
-   * The list contents are of type {@link org.xtext.example.encodingLang.Mapping}.
+   * Returns the value of the '<em><b>Conversions</b></em>' containment reference list.
+   * The list contents are of type {@link org.xtext.example.encodingLang.Conversion}.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Mappings</em>' containment reference list isn't clear,
+   * If the meaning of the '<em>Conversions</em>' containment reference list isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Mappings</em>' containment reference list.
-   * @see org.xtext.example.encodingLang.EncodingLangPackage#getSourceMapping_Mappings()
+   * @return the value of the '<em>Conversions</em>' containment reference list.
+   * @see org.xtext.example.encodingLang.EncodingLangPackage#getSourceMapping_Conversions()
    * @model containment="true"
    * @generated
    */
-  EList<Mapping> getMappings();
+  EList<Conversion> getConversions();
 
 } // SourceMapping

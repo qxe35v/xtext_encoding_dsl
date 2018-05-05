@@ -24,9 +24,6 @@ import org.xtext.example.encodingLang.SourceMapping;
 public class EncodingLangGenerator extends AbstractGenerator {
   @Override
   public void doGenerate(final Resource resource, final IFileSystemAccess2 fsa, final IGeneratorContext context) {
-    String _string = resource.toString();
-    String _plus = (_string + ".txt");
-    fsa.generateFile(_plus, this.generate(resource));
   }
   
   public CharSequence generate(final Resource r) {
@@ -121,7 +118,7 @@ public class EncodingLangGenerator extends AbstractGenerator {
         String _name_10 = s_1.getName();
         _builder.append(_name_10, "\t");
         _builder.append(" = ");
-        int _length = s_1.getMappings().get(0).getFrom().length();
+        int _length = s_1.getConversions().get(0).getMappings().get(0).getFrom().length();
         _builder.append(_length, "\t");
         _builder.append(";");
         _builder.newLineIfNotEmpty();
@@ -132,7 +129,7 @@ public class EncodingLangGenerator extends AbstractGenerator {
         _builder.append(",&length_");
         String _name_12 = s_1.getName();
         _builder.append(_name_12, "\t");
-        _builder.append(")");
+        _builder.append(");");
         _builder.newLineIfNotEmpty();
       }
     }
@@ -144,8 +141,7 @@ public class EncodingLangGenerator extends AbstractGenerator {
     _builder.newLine();
     _builder.append("hashtable* mappings(){");
     _builder.newLine();
-    _builder.append("\t");
-    _builder.append("hashtable* mappings = hashtable_init(128, ");
+    _builder.append("\t ");
     _builder.newLine();
     _builder.append("}");
     _builder.newLine();

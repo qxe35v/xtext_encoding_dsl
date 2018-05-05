@@ -12,7 +12,11 @@
     <genClasses ecoreClass="EncodingLang.ecore#//SourceMapping">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EncodingLang.ecore#//SourceMapping/name"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EncodingLang.ecore#//SourceMapping/aliases"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EncodingLang.ecore#//SourceMapping/mappings"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EncodingLang.ecore#//SourceMapping/conversions"/>
+    </genClasses>
+    <genClasses ecoreClass="EncodingLang.ecore#//Conversion">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EncodingLang.ecore#//Conversion/name"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EncodingLang.ecore#//Conversion/mappings"/>
     </genClasses>
     <genClasses ecoreClass="EncodingLang.ecore#//Mapping">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EncodingLang.ecore#//Mapping/from"/>

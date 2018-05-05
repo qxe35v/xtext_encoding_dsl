@@ -93,19 +93,25 @@ public class EncodingLangParsingTest {
       _builder.append("source test{");
       _builder.newLine();
       _builder.append("\t");
+      _builder.append("target a{");
+      _builder.newLine();
+      _builder.append("\t\t");
       _builder.append("0x1122=0x1234");
       _builder.newLine();
-      _builder.append("\t");
+      _builder.append("\t\t");
       _builder.append("0x4567~0x8593");
       _builder.newLine();
-      _builder.append("\t");
+      _builder.append("\t\t");
       _builder.append("0x1568=0x2114");
       _builder.newLine();
-      _builder.append("\t");
+      _builder.append("\t\t");
       _builder.append("0x6574=0x9435");
       _builder.newLine();
-      _builder.append("\t");
+      _builder.append("\t\t");
       _builder.append("0x5769~0x1286");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("}");
       _builder.newLine();
       _builder.append("}");
       _builder.newLine();
@@ -152,47 +158,25 @@ public class EncodingLangParsingTest {
   public void multipleMapping_2Bytes() {
     try {
       StringConcatenation _builder = new StringConcatenation();
-      _builder.append("source test{");
+      _builder.append("source test {");
       _builder.newLine();
       _builder.append("\t");
+      _builder.append("target a {");
+      _builder.newLine();
+      _builder.append("\t\t");
       _builder.append("0xabcd=0xefef");
       _builder.newLine();
-      _builder.append("\t");
-      _builder.append("/*0xa2b4=0xde9c");
+      _builder.append("\t\t");
+      _builder.append("0xa2b4=0xde9c");
       _builder.newLine();
-      _builder.append("\t  ");
+      _builder.append("\t\t");
       _builder.append("0xaaaa~0xffff");
       _builder.newLine();
-      _builder.append("\t  ");
-      _builder.append("0xb78c~0xf32a*/");
+      _builder.append("\t\t");
+      _builder.append("0xb78c~0xf32a");
       _builder.newLine();
+      _builder.append("\t");
       _builder.append("}");
-      _builder.newLine();
-      final Model result = this.parseHelper.parse(_builder);
-      Assert.assertNotNull(result);
-      Assert.assertTrue(result.eResource().getErrors().isEmpty());
-    } catch (Throwable _e) {
-      throw Exceptions.sneakyThrow(_e);
-    }
-  }
-  
-  @Test
-  public void multipleMapping_MultipleBytes() {
-    try {
-      StringConcatenation _builder = new StringConcatenation();
-      _builder.append("source test{");
-      _builder.newLine();
-      _builder.append("\t");
-      _builder.append("0xabCd=0xef");
-      _builder.newLine();
-      _builder.append("\t");
-      _builder.append("0xa2B4=0xdE449c");
-      _builder.newLine();
-      _builder.append("\t");
-      _builder.append("0xaaaCDa~0Xf8ff");
-      _builder.newLine();
-      _builder.append("\t");
-      _builder.append("0xb7~0xF32a6b");
       _builder.newLine();
       _builder.append("}");
       _builder.newLine();
@@ -214,10 +198,16 @@ public class EncodingLangParsingTest {
       _builder.append("//need alias");
       _builder.newLine();
       _builder.append("\t");
+      _builder.append("target a{");
+      _builder.newLine();
+      _builder.append("\t");
       _builder.append("0xabcd=0xef");
       _builder.newLine();
       _builder.append("\t");
-      _builder.append("0xa2b4=0xde449c}");
+      _builder.append("0xa2b4=0xde449c");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("}}");
       _builder.newLine();
       _builder.append("source test2{");
       _builder.newLine();
@@ -225,16 +215,20 @@ public class EncodingLangParsingTest {
       _builder.append("alias test2alias");
       _builder.newLine();
       _builder.append("\t");
+      _builder.append("target b{");
+      _builder.newLine();
+      _builder.append("\t");
       _builder.append("0xaaacda~0xf8ff");
       _builder.newLine();
       _builder.append("\t");
       _builder.append("0xb7~0xf32a6b");
       _builder.newLine();
-      _builder.append("}");
+      _builder.append("\t");
+      _builder.append("}}");
       _builder.newLine();
       final Model result = this.parseHelper.parse(_builder);
       Assert.assertNotNull(result);
-      Assert.assertFalse(result.eResource().getErrors().isEmpty());
+      Assert.assertTrue(result.eResource().getErrors().isEmpty());
     } catch (Throwable _e) {
       throw Exceptions.sneakyThrow(_e);
     }

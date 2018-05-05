@@ -10,6 +10,7 @@ import org.xtext.example.encodingLang.Alias
 import org.xtext.example.encodingLang.Mapping
 import org.xtext.example.encodingLang.Model
 import org.xtext.example.encodingLang.SourceMapping
+import org.xtext.example.encodingLang.Conversion
 //import org.xtext.example.services.EncodingLangGrammarAccess
 
 class EncodingLangFormatter extends AbstractFormatter2 {
@@ -25,7 +26,7 @@ class EncodingLangFormatter extends AbstractFormatter2 {
 
 	def dispatch void format(SourceMapping s, extension IFormattableDocument document) {
 		// TODO: format HiddenRegions around keywords, attributes, cross references, etc. 
-		s.regionFor.keyword("source").prepend[newLine].append[oneSpace]
+		s.regionFor.keyword("source").append[oneSpace]
 		var open = s.regionFor.keyword("{")
 		open.prepend[oneSpace].append[newLine]
 		var close = s.regionFor.keyword("}")
@@ -35,10 +36,19 @@ class EncodingLangFormatter extends AbstractFormatter2 {
 			alias.append[newLine]
 			alias.regionFor.keyword("alias").prepend[indent].append[oneSpace]
 		}
-		for (Mapping mapping : s.getMappings()) {
-			mapping.append[newLine]
-			mapping.regionFor.keyword("=").surround[oneSpace]
-			mapping.regionFor.keyword("~").surround[oneSpace]
+		for (Conversion conversion : s.getConversions() ) {
+			conversion.regionFor.keyword("target").prepend[newLine].append[oneSpace]
+			var convopen = conversion.regionFor.keyword("{")
+			convopen.prepend[oneSpace].append[newLine]
+			var convclose = conversion.regionFor.keyword("}")
+			convclose.append[newLine]
+			interior(convopen, convclose)[indent]
+			
+			for (Mapping mapping : conversion.getMappings()) {
+				mapping.append[newLine]
+				mapping.regionFor.keyword("=").surround[oneSpace]
+				mapping.regionFor.keyword("~").surround[oneSpace]
+		}
 		}
 	}
 }

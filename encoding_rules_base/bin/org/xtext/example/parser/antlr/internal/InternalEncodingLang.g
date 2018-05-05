@@ -93,7 +93,7 @@ ruleModel returns [EObject current=null]
 				afterParserOrEnumRuleCall();
 			}
 		)
-	)?
+	)*
 ;
 
 // Entry rule entryRuleSourceMapping
@@ -160,18 +160,18 @@ ruleSourceMapping returns [EObject current=null]
 		(
 			(
 				{
-					newCompositeNode(grammarAccess.getSourceMappingAccess().getMappingsMappingParserRuleCall_4_0());
+					newCompositeNode(grammarAccess.getSourceMappingAccess().getConversionsConversionParserRuleCall_4_0());
 				}
-				lv_mappings_4_0=ruleMapping
+				lv_conversions_4_0=ruleConversion
 				{
 					if ($current==null) {
 						$current = createModelElementForParent(grammarAccess.getSourceMappingRule());
 					}
 					add(
 						$current,
-						"mappings",
-						lv_mappings_4_0,
-						"org.xtext.example.EncodingLang.Mapping");
+						"conversions",
+						lv_conversions_4_0,
+						"org.xtext.example.EncodingLang.Conversion");
 					afterParserOrEnumRuleCall();
 				}
 			)
@@ -179,6 +179,74 @@ ruleSourceMapping returns [EObject current=null]
 		otherlv_5='}'
 		{
 			newLeafNode(otherlv_5, grammarAccess.getSourceMappingAccess().getRightCurlyBracketKeyword_5());
+		}
+	)
+;
+
+// Entry rule entryRuleConversion
+entryRuleConversion returns [EObject current=null]:
+	{ newCompositeNode(grammarAccess.getConversionRule()); }
+	iv_ruleConversion=ruleConversion
+	{ $current=$iv_ruleConversion.current; }
+	EOF;
+
+// Rule Conversion
+ruleConversion returns [EObject current=null]
+@init {
+	enterRule();
+}
+@after {
+	leaveRule();
+}:
+	(
+		otherlv_0='target'
+		{
+			newLeafNode(otherlv_0, grammarAccess.getConversionAccess().getTargetKeyword_0());
+		}
+		(
+			(
+				lv_name_1_0=RULE_ID
+				{
+					newLeafNode(lv_name_1_0, grammarAccess.getConversionAccess().getNameIDTerminalRuleCall_1_0());
+				}
+				{
+					if ($current==null) {
+						$current = createModelElement(grammarAccess.getConversionRule());
+					}
+					setWithLastConsumed(
+						$current,
+						"name",
+						lv_name_1_0,
+						"org.eclipse.xtext.common.Terminals.ID");
+				}
+			)
+		)
+		otherlv_2='{'
+		{
+			newLeafNode(otherlv_2, grammarAccess.getConversionAccess().getLeftCurlyBracketKeyword_2());
+		}
+		(
+			(
+				{
+					newCompositeNode(grammarAccess.getConversionAccess().getMappingsMappingParserRuleCall_3_0());
+				}
+				lv_mappings_3_0=ruleMapping
+				{
+					if ($current==null) {
+						$current = createModelElementForParent(grammarAccess.getConversionRule());
+					}
+					add(
+						$current,
+						"mappings",
+						lv_mappings_3_0,
+						"org.xtext.example.EncodingLang.Mapping");
+					afterParserOrEnumRuleCall();
+				}
+			)
+		)*
+		otherlv_4='}'
+		{
+			newLeafNode(otherlv_4, grammarAccess.getConversionAccess().getRightCurlyBracketKeyword_4());
 		}
 	)
 ;

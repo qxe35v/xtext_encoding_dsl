@@ -114,13 +114,13 @@ public interface EncodingLangPackage extends EPackage
   int SOURCE_MAPPING__ALIASES = 1;
 
   /**
-   * The feature id for the '<em><b>Mappings</b></em>' containment reference list.
+   * The feature id for the '<em><b>Conversions</b></em>' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int SOURCE_MAPPING__MAPPINGS = 2;
+  int SOURCE_MAPPING__CONVERSIONS = 2;
 
   /**
    * The number of structural features of the '<em>Source Mapping</em>' class.
@@ -132,6 +132,43 @@ public interface EncodingLangPackage extends EPackage
   int SOURCE_MAPPING_FEATURE_COUNT = 3;
 
   /**
+   * The meta object id for the '{@link org.xtext.example.encodingLang.impl.ConversionImpl <em>Conversion</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.xtext.example.encodingLang.impl.ConversionImpl
+   * @see org.xtext.example.encodingLang.impl.EncodingLangPackageImpl#getConversion()
+   * @generated
+   */
+  int CONVERSION = 2;
+
+  /**
+   * The feature id for the '<em><b>Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int CONVERSION__NAME = 0;
+
+  /**
+   * The feature id for the '<em><b>Mappings</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int CONVERSION__MAPPINGS = 1;
+
+  /**
+   * The number of structural features of the '<em>Conversion</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int CONVERSION_FEATURE_COUNT = 2;
+
+  /**
    * The meta object id for the '{@link org.xtext.example.encodingLang.impl.MappingImpl <em>Mapping</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -139,7 +176,7 @@ public interface EncodingLangPackage extends EPackage
    * @see org.xtext.example.encodingLang.impl.EncodingLangPackageImpl#getMapping()
    * @generated
    */
-  int MAPPING = 2;
+  int MAPPING = 3;
 
   /**
    * The feature id for the '<em><b>From</b></em>' attribute.
@@ -176,7 +213,7 @@ public interface EncodingLangPackage extends EPackage
    * @see org.xtext.example.encodingLang.impl.EncodingLangPackageImpl#getExactMapping()
    * @generated
    */
-  int EXACT_MAPPING = 3;
+  int EXACT_MAPPING = 4;
 
   /**
    * The feature id for the '<em><b>From</b></em>' attribute.
@@ -213,7 +250,7 @@ public interface EncodingLangPackage extends EPackage
    * @see org.xtext.example.encodingLang.impl.EncodingLangPackageImpl#getTransliterationMapping()
    * @generated
    */
-  int TRANSLITERATION_MAPPING = 4;
+  int TRANSLITERATION_MAPPING = 5;
 
   /**
    * The feature id for the '<em><b>From</b></em>' attribute.
@@ -250,7 +287,7 @@ public interface EncodingLangPackage extends EPackage
    * @see org.xtext.example.encodingLang.impl.EncodingLangPackageImpl#getAlias()
    * @generated
    */
-  int ALIAS = 5;
+  int ALIAS = 6;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -325,15 +362,47 @@ public interface EncodingLangPackage extends EPackage
   EReference getSourceMapping_Aliases();
 
   /**
-   * Returns the meta object for the containment reference list '{@link org.xtext.example.encodingLang.SourceMapping#getMappings <em>Mappings</em>}'.
+   * Returns the meta object for the containment reference list '{@link org.xtext.example.encodingLang.SourceMapping#getConversions <em>Conversions</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the containment reference list '<em>Mappings</em>'.
-   * @see org.xtext.example.encodingLang.SourceMapping#getMappings()
+   * @return the meta object for the containment reference list '<em>Conversions</em>'.
+   * @see org.xtext.example.encodingLang.SourceMapping#getConversions()
    * @see #getSourceMapping()
    * @generated
    */
-  EReference getSourceMapping_Mappings();
+  EReference getSourceMapping_Conversions();
+
+  /**
+   * Returns the meta object for class '{@link org.xtext.example.encodingLang.Conversion <em>Conversion</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Conversion</em>'.
+   * @see org.xtext.example.encodingLang.Conversion
+   * @generated
+   */
+  EClass getConversion();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.xtext.example.encodingLang.Conversion#getName <em>Name</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Name</em>'.
+   * @see org.xtext.example.encodingLang.Conversion#getName()
+   * @see #getConversion()
+   * @generated
+   */
+  EAttribute getConversion_Name();
+
+  /**
+   * Returns the meta object for the containment reference list '{@link org.xtext.example.encodingLang.Conversion#getMappings <em>Mappings</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Mappings</em>'.
+   * @see org.xtext.example.encodingLang.Conversion#getMappings()
+   * @see #getConversion()
+   * @generated
+   */
+  EReference getConversion_Mappings();
 
   /**
    * Returns the meta object for class '{@link org.xtext.example.encodingLang.Mapping <em>Mapping</em>}'.
@@ -476,12 +545,38 @@ public interface EncodingLangPackage extends EPackage
     EReference SOURCE_MAPPING__ALIASES = eINSTANCE.getSourceMapping_Aliases();
 
     /**
+     * The meta object literal for the '<em><b>Conversions</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference SOURCE_MAPPING__CONVERSIONS = eINSTANCE.getSourceMapping_Conversions();
+
+    /**
+     * The meta object literal for the '{@link org.xtext.example.encodingLang.impl.ConversionImpl <em>Conversion</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.xtext.example.encodingLang.impl.ConversionImpl
+     * @see org.xtext.example.encodingLang.impl.EncodingLangPackageImpl#getConversion()
+     * @generated
+     */
+    EClass CONVERSION = eINSTANCE.getConversion();
+
+    /**
+     * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute CONVERSION__NAME = eINSTANCE.getConversion_Name();
+
+    /**
      * The meta object literal for the '<em><b>Mappings</b></em>' containment reference list feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference SOURCE_MAPPING__MAPPINGS = eINSTANCE.getSourceMapping_Mappings();
+    EReference CONVERSION__MAPPINGS = eINSTANCE.getConversion_Mappings();
 
     /**
      * The meta object literal for the '{@link org.xtext.example.encodingLang.impl.MappingImpl <em>Mapping</em>}' class.

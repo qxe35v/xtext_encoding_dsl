@@ -21,7 +21,7 @@ import java.util.ArrayList;
 @SuppressWarnings("all")
 public class InternalEncodingLangParser extends AbstractInternalAntlrParser {
     public static final String[] tokenNames = new String[] {
-        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "RULE_ID", "RULE_INPUTCHAR", "RULE_INT", "RULE_STRING", "RULE_ML_COMMENT", "RULE_SL_COMMENT", "RULE_WS", "RULE_ANY_OTHER", "'source'", "'{'", "'}'", "'='", "'~'", "'alias'"
+        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "RULE_ID", "RULE_INPUTCHAR", "RULE_INT", "RULE_STRING", "RULE_ML_COMMENT", "RULE_SL_COMMENT", "RULE_WS", "RULE_ANY_OTHER", "'source'", "'{'", "'}'", "'target'", "'='", "'~'", "'alias'"
     };
     public static final int RULE_ID=4;
     public static final int RULE_WS=10;
@@ -33,6 +33,7 @@ public class InternalEncodingLangParser extends AbstractInternalAntlrParser {
     public static final int T__17=17;
     public static final int RULE_INPUTCHAR=5;
     public static final int RULE_INT=6;
+    public static final int T__18=18;
     public static final int RULE_ML_COMMENT=8;
     public static final int T__12=12;
     public static final int T__13=13;
@@ -115,7 +116,7 @@ public class InternalEncodingLangParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleModel"
-    // InternalEncodingLang.g:71:1: ruleModel returns [EObject current=null] : ( (lv_elements_0_0= ruleSourceMapping ) )? ;
+    // InternalEncodingLang.g:71:1: ruleModel returns [EObject current=null] : ( (lv_elements_0_0= ruleSourceMapping ) )* ;
     public final EObject ruleModel() throws RecognitionException {
         EObject current = null;
 
@@ -126,50 +127,57 @@ public class InternalEncodingLangParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalEncodingLang.g:77:2: ( ( (lv_elements_0_0= ruleSourceMapping ) )? )
-            // InternalEncodingLang.g:78:2: ( (lv_elements_0_0= ruleSourceMapping ) )?
+            // InternalEncodingLang.g:77:2: ( ( (lv_elements_0_0= ruleSourceMapping ) )* )
+            // InternalEncodingLang.g:78:2: ( (lv_elements_0_0= ruleSourceMapping ) )*
             {
-            // InternalEncodingLang.g:78:2: ( (lv_elements_0_0= ruleSourceMapping ) )?
-            int alt1=2;
-            int LA1_0 = input.LA(1);
+            // InternalEncodingLang.g:78:2: ( (lv_elements_0_0= ruleSourceMapping ) )*
+            loop1:
+            do {
+                int alt1=2;
+                int LA1_0 = input.LA(1);
 
-            if ( (LA1_0==12) ) {
-                alt1=1;
-            }
-            switch (alt1) {
-                case 1 :
-                    // InternalEncodingLang.g:79:3: (lv_elements_0_0= ruleSourceMapping )
-                    {
-                    // InternalEncodingLang.g:79:3: (lv_elements_0_0= ruleSourceMapping )
-                    // InternalEncodingLang.g:80:4: lv_elements_0_0= ruleSourceMapping
-                    {
-
-                    				newCompositeNode(grammarAccess.getModelAccess().getElementsSourceMappingParserRuleCall_0());
-                    			
-                    pushFollow(FOLLOW_2);
-                    lv_elements_0_0=ruleSourceMapping();
-
-                    state._fsp--;
+                if ( (LA1_0==12) ) {
+                    alt1=1;
+                }
 
 
-                    				if (current==null) {
-                    					current = createModelElementForParent(grammarAccess.getModelRule());
-                    				}
-                    				add(
-                    					current,
-                    					"elements",
-                    					lv_elements_0_0,
-                    					"org.xtext.example.EncodingLang.SourceMapping");
-                    				afterParserOrEnumRuleCall();
-                    			
+                switch (alt1) {
+            	case 1 :
+            	    // InternalEncodingLang.g:79:3: (lv_elements_0_0= ruleSourceMapping )
+            	    {
+            	    // InternalEncodingLang.g:79:3: (lv_elements_0_0= ruleSourceMapping )
+            	    // InternalEncodingLang.g:80:4: lv_elements_0_0= ruleSourceMapping
+            	    {
 
-                    }
+            	    				newCompositeNode(grammarAccess.getModelAccess().getElementsSourceMappingParserRuleCall_0());
+            	    			
+            	    pushFollow(FOLLOW_3);
+            	    lv_elements_0_0=ruleSourceMapping();
+
+            	    state._fsp--;
 
 
-                    }
-                    break;
+            	    				if (current==null) {
+            	    					current = createModelElementForParent(grammarAccess.getModelRule());
+            	    				}
+            	    				add(
+            	    					current,
+            	    					"elements",
+            	    					lv_elements_0_0,
+            	    					"org.xtext.example.EncodingLang.SourceMapping");
+            	    				afterParserOrEnumRuleCall();
+            	    			
 
-            }
+            	    }
+
+
+            	    }
+            	    break;
+
+            	default :
+            	    break loop1;
+                }
+            } while (true);
 
 
             }
@@ -227,7 +235,7 @@ public class InternalEncodingLangParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleSourceMapping"
-    // InternalEncodingLang.g:107:1: ruleSourceMapping returns [EObject current=null] : (otherlv_0= 'source' ( (lv_name_1_0= RULE_ID ) ) otherlv_2= '{' ( (lv_aliases_3_0= ruleAlias ) )* ( (lv_mappings_4_0= ruleMapping ) )* otherlv_5= '}' ) ;
+    // InternalEncodingLang.g:107:1: ruleSourceMapping returns [EObject current=null] : (otherlv_0= 'source' ( (lv_name_1_0= RULE_ID ) ) otherlv_2= '{' ( (lv_aliases_3_0= ruleAlias ) )* ( (lv_conversions_4_0= ruleConversion ) )* otherlv_5= '}' ) ;
     public final EObject ruleSourceMapping() throws RecognitionException {
         EObject current = null;
 
@@ -237,20 +245,20 @@ public class InternalEncodingLangParser extends AbstractInternalAntlrParser {
         Token otherlv_5=null;
         EObject lv_aliases_3_0 = null;
 
-        EObject lv_mappings_4_0 = null;
+        EObject lv_conversions_4_0 = null;
 
 
 
         	enterRule();
 
         try {
-            // InternalEncodingLang.g:113:2: ( (otherlv_0= 'source' ( (lv_name_1_0= RULE_ID ) ) otherlv_2= '{' ( (lv_aliases_3_0= ruleAlias ) )* ( (lv_mappings_4_0= ruleMapping ) )* otherlv_5= '}' ) )
-            // InternalEncodingLang.g:114:2: (otherlv_0= 'source' ( (lv_name_1_0= RULE_ID ) ) otherlv_2= '{' ( (lv_aliases_3_0= ruleAlias ) )* ( (lv_mappings_4_0= ruleMapping ) )* otherlv_5= '}' )
+            // InternalEncodingLang.g:113:2: ( (otherlv_0= 'source' ( (lv_name_1_0= RULE_ID ) ) otherlv_2= '{' ( (lv_aliases_3_0= ruleAlias ) )* ( (lv_conversions_4_0= ruleConversion ) )* otherlv_5= '}' ) )
+            // InternalEncodingLang.g:114:2: (otherlv_0= 'source' ( (lv_name_1_0= RULE_ID ) ) otherlv_2= '{' ( (lv_aliases_3_0= ruleAlias ) )* ( (lv_conversions_4_0= ruleConversion ) )* otherlv_5= '}' )
             {
-            // InternalEncodingLang.g:114:2: (otherlv_0= 'source' ( (lv_name_1_0= RULE_ID ) ) otherlv_2= '{' ( (lv_aliases_3_0= ruleAlias ) )* ( (lv_mappings_4_0= ruleMapping ) )* otherlv_5= '}' )
-            // InternalEncodingLang.g:115:3: otherlv_0= 'source' ( (lv_name_1_0= RULE_ID ) ) otherlv_2= '{' ( (lv_aliases_3_0= ruleAlias ) )* ( (lv_mappings_4_0= ruleMapping ) )* otherlv_5= '}'
+            // InternalEncodingLang.g:114:2: (otherlv_0= 'source' ( (lv_name_1_0= RULE_ID ) ) otherlv_2= '{' ( (lv_aliases_3_0= ruleAlias ) )* ( (lv_conversions_4_0= ruleConversion ) )* otherlv_5= '}' )
+            // InternalEncodingLang.g:115:3: otherlv_0= 'source' ( (lv_name_1_0= RULE_ID ) ) otherlv_2= '{' ( (lv_aliases_3_0= ruleAlias ) )* ( (lv_conversions_4_0= ruleConversion ) )* otherlv_5= '}'
             {
-            otherlv_0=(Token)match(input,12,FOLLOW_3); 
+            otherlv_0=(Token)match(input,12,FOLLOW_4); 
 
             			newLeafNode(otherlv_0, grammarAccess.getSourceMappingAccess().getSourceKeyword_0());
             		
@@ -260,7 +268,7 @@ public class InternalEncodingLangParser extends AbstractInternalAntlrParser {
             // InternalEncodingLang.g:120:4: (lv_name_1_0= RULE_ID )
             // InternalEncodingLang.g:121:5: lv_name_1_0= RULE_ID
             {
-            lv_name_1_0=(Token)match(input,RULE_ID,FOLLOW_4); 
+            lv_name_1_0=(Token)match(input,RULE_ID,FOLLOW_5); 
 
             					newLeafNode(lv_name_1_0, grammarAccess.getSourceMappingAccess().getNameIDTerminalRuleCall_1_0());
             				
@@ -280,7 +288,7 @@ public class InternalEncodingLangParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_2=(Token)match(input,13,FOLLOW_5); 
+            otherlv_2=(Token)match(input,13,FOLLOW_6); 
 
             			newLeafNode(otherlv_2, grammarAccess.getSourceMappingAccess().getLeftCurlyBracketKeyword_2());
             		
@@ -290,7 +298,7 @@ public class InternalEncodingLangParser extends AbstractInternalAntlrParser {
                 int alt2=2;
                 int LA2_0 = input.LA(1);
 
-                if ( (LA2_0==17) ) {
+                if ( (LA2_0==18) ) {
                     alt2=1;
                 }
 
@@ -305,7 +313,7 @@ public class InternalEncodingLangParser extends AbstractInternalAntlrParser {
 
             	    					newCompositeNode(grammarAccess.getSourceMappingAccess().getAliasesAliasParserRuleCall_3_0());
             	    				
-            	    pushFollow(FOLLOW_5);
+            	    pushFollow(FOLLOW_6);
             	    lv_aliases_3_0=ruleAlias();
 
             	    state._fsp--;
@@ -333,29 +341,29 @@ public class InternalEncodingLangParser extends AbstractInternalAntlrParser {
                 }
             } while (true);
 
-            // InternalEncodingLang.g:160:3: ( (lv_mappings_4_0= ruleMapping ) )*
+            // InternalEncodingLang.g:160:3: ( (lv_conversions_4_0= ruleConversion ) )*
             loop3:
             do {
                 int alt3=2;
                 int LA3_0 = input.LA(1);
 
-                if ( (LA3_0==RULE_INPUTCHAR) ) {
+                if ( (LA3_0==15) ) {
                     alt3=1;
                 }
 
 
                 switch (alt3) {
             	case 1 :
-            	    // InternalEncodingLang.g:161:4: (lv_mappings_4_0= ruleMapping )
+            	    // InternalEncodingLang.g:161:4: (lv_conversions_4_0= ruleConversion )
             	    {
-            	    // InternalEncodingLang.g:161:4: (lv_mappings_4_0= ruleMapping )
-            	    // InternalEncodingLang.g:162:5: lv_mappings_4_0= ruleMapping
+            	    // InternalEncodingLang.g:161:4: (lv_conversions_4_0= ruleConversion )
+            	    // InternalEncodingLang.g:162:5: lv_conversions_4_0= ruleConversion
             	    {
 
-            	    					newCompositeNode(grammarAccess.getSourceMappingAccess().getMappingsMappingParserRuleCall_4_0());
+            	    					newCompositeNode(grammarAccess.getSourceMappingAccess().getConversionsConversionParserRuleCall_4_0());
             	    				
-            	    pushFollow(FOLLOW_6);
-            	    lv_mappings_4_0=ruleMapping();
+            	    pushFollow(FOLLOW_7);
+            	    lv_conversions_4_0=ruleConversion();
 
             	    state._fsp--;
 
@@ -365,9 +373,9 @@ public class InternalEncodingLangParser extends AbstractInternalAntlrParser {
             	    					}
             	    					add(
             	    						current,
-            	    						"mappings",
-            	    						lv_mappings_4_0,
-            	    						"org.xtext.example.EncodingLang.Mapping");
+            	    						"conversions",
+            	    						lv_conversions_4_0,
+            	    						"org.xtext.example.EncodingLang.Conversion");
             	    					afterParserOrEnumRuleCall();
             	    				
 
@@ -408,8 +416,175 @@ public class InternalEncodingLangParser extends AbstractInternalAntlrParser {
     // $ANTLR end "ruleSourceMapping"
 
 
+    // $ANTLR start "entryRuleConversion"
+    // InternalEncodingLang.g:187:1: entryRuleConversion returns [EObject current=null] : iv_ruleConversion= ruleConversion EOF ;
+    public final EObject entryRuleConversion() throws RecognitionException {
+        EObject current = null;
+
+        EObject iv_ruleConversion = null;
+
+
+        try {
+            // InternalEncodingLang.g:187:51: (iv_ruleConversion= ruleConversion EOF )
+            // InternalEncodingLang.g:188:2: iv_ruleConversion= ruleConversion EOF
+            {
+             newCompositeNode(grammarAccess.getConversionRule()); 
+            pushFollow(FOLLOW_1);
+            iv_ruleConversion=ruleConversion();
+
+            state._fsp--;
+
+             current =iv_ruleConversion; 
+            match(input,EOF,FOLLOW_2); 
+
+            }
+
+        }
+
+            catch (RecognitionException re) {
+                recover(input,re);
+                appendSkippedTokens();
+            }
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "entryRuleConversion"
+
+
+    // $ANTLR start "ruleConversion"
+    // InternalEncodingLang.g:194:1: ruleConversion returns [EObject current=null] : (otherlv_0= 'target' ( (lv_name_1_0= RULE_ID ) ) otherlv_2= '{' ( (lv_mappings_3_0= ruleMapping ) )* otherlv_4= '}' ) ;
+    public final EObject ruleConversion() throws RecognitionException {
+        EObject current = null;
+
+        Token otherlv_0=null;
+        Token lv_name_1_0=null;
+        Token otherlv_2=null;
+        Token otherlv_4=null;
+        EObject lv_mappings_3_0 = null;
+
+
+
+        	enterRule();
+
+        try {
+            // InternalEncodingLang.g:200:2: ( (otherlv_0= 'target' ( (lv_name_1_0= RULE_ID ) ) otherlv_2= '{' ( (lv_mappings_3_0= ruleMapping ) )* otherlv_4= '}' ) )
+            // InternalEncodingLang.g:201:2: (otherlv_0= 'target' ( (lv_name_1_0= RULE_ID ) ) otherlv_2= '{' ( (lv_mappings_3_0= ruleMapping ) )* otherlv_4= '}' )
+            {
+            // InternalEncodingLang.g:201:2: (otherlv_0= 'target' ( (lv_name_1_0= RULE_ID ) ) otherlv_2= '{' ( (lv_mappings_3_0= ruleMapping ) )* otherlv_4= '}' )
+            // InternalEncodingLang.g:202:3: otherlv_0= 'target' ( (lv_name_1_0= RULE_ID ) ) otherlv_2= '{' ( (lv_mappings_3_0= ruleMapping ) )* otherlv_4= '}'
+            {
+            otherlv_0=(Token)match(input,15,FOLLOW_4); 
+
+            			newLeafNode(otherlv_0, grammarAccess.getConversionAccess().getTargetKeyword_0());
+            		
+            // InternalEncodingLang.g:206:3: ( (lv_name_1_0= RULE_ID ) )
+            // InternalEncodingLang.g:207:4: (lv_name_1_0= RULE_ID )
+            {
+            // InternalEncodingLang.g:207:4: (lv_name_1_0= RULE_ID )
+            // InternalEncodingLang.g:208:5: lv_name_1_0= RULE_ID
+            {
+            lv_name_1_0=(Token)match(input,RULE_ID,FOLLOW_5); 
+
+            					newLeafNode(lv_name_1_0, grammarAccess.getConversionAccess().getNameIDTerminalRuleCall_1_0());
+            				
+
+            					if (current==null) {
+            						current = createModelElement(grammarAccess.getConversionRule());
+            					}
+            					setWithLastConsumed(
+            						current,
+            						"name",
+            						lv_name_1_0,
+            						"org.eclipse.xtext.common.Terminals.ID");
+            				
+
+            }
+
+
+            }
+
+            otherlv_2=(Token)match(input,13,FOLLOW_8); 
+
+            			newLeafNode(otherlv_2, grammarAccess.getConversionAccess().getLeftCurlyBracketKeyword_2());
+            		
+            // InternalEncodingLang.g:228:3: ( (lv_mappings_3_0= ruleMapping ) )*
+            loop4:
+            do {
+                int alt4=2;
+                int LA4_0 = input.LA(1);
+
+                if ( (LA4_0==RULE_INPUTCHAR) ) {
+                    alt4=1;
+                }
+
+
+                switch (alt4) {
+            	case 1 :
+            	    // InternalEncodingLang.g:229:4: (lv_mappings_3_0= ruleMapping )
+            	    {
+            	    // InternalEncodingLang.g:229:4: (lv_mappings_3_0= ruleMapping )
+            	    // InternalEncodingLang.g:230:5: lv_mappings_3_0= ruleMapping
+            	    {
+
+            	    					newCompositeNode(grammarAccess.getConversionAccess().getMappingsMappingParserRuleCall_3_0());
+            	    				
+            	    pushFollow(FOLLOW_8);
+            	    lv_mappings_3_0=ruleMapping();
+
+            	    state._fsp--;
+
+
+            	    					if (current==null) {
+            	    						current = createModelElementForParent(grammarAccess.getConversionRule());
+            	    					}
+            	    					add(
+            	    						current,
+            	    						"mappings",
+            	    						lv_mappings_3_0,
+            	    						"org.xtext.example.EncodingLang.Mapping");
+            	    					afterParserOrEnumRuleCall();
+            	    				
+
+            	    }
+
+
+            	    }
+            	    break;
+
+            	default :
+            	    break loop4;
+                }
+            } while (true);
+
+            otherlv_4=(Token)match(input,14,FOLLOW_2); 
+
+            			newLeafNode(otherlv_4, grammarAccess.getConversionAccess().getRightCurlyBracketKeyword_4());
+            		
+
+            }
+
+
+            }
+
+
+            	leaveRule();
+
+        }
+
+            catch (RecognitionException re) {
+                recover(input,re);
+                appendSkippedTokens();
+            }
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "ruleConversion"
+
+
     // $ANTLR start "entryRuleMapping"
-    // InternalEncodingLang.g:187:1: entryRuleMapping returns [EObject current=null] : iv_ruleMapping= ruleMapping EOF ;
+    // InternalEncodingLang.g:255:1: entryRuleMapping returns [EObject current=null] : iv_ruleMapping= ruleMapping EOF ;
     public final EObject entryRuleMapping() throws RecognitionException {
         EObject current = null;
 
@@ -417,8 +592,8 @@ public class InternalEncodingLangParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalEncodingLang.g:187:48: (iv_ruleMapping= ruleMapping EOF )
-            // InternalEncodingLang.g:188:2: iv_ruleMapping= ruleMapping EOF
+            // InternalEncodingLang.g:255:48: (iv_ruleMapping= ruleMapping EOF )
+            // InternalEncodingLang.g:256:2: iv_ruleMapping= ruleMapping EOF
             {
              newCompositeNode(grammarAccess.getMappingRule()); 
             pushFollow(FOLLOW_1);
@@ -445,7 +620,7 @@ public class InternalEncodingLangParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleMapping"
-    // InternalEncodingLang.g:194:1: ruleMapping returns [EObject current=null] : (this_ExactMapping_0= ruleExactMapping | this_TransliterationMapping_1= ruleTransliterationMapping ) ;
+    // InternalEncodingLang.g:262:1: ruleMapping returns [EObject current=null] : (this_ExactMapping_0= ruleExactMapping | this_TransliterationMapping_1= ruleTransliterationMapping ) ;
     public final EObject ruleMapping() throws RecognitionException {
         EObject current = null;
 
@@ -458,38 +633,38 @@ public class InternalEncodingLangParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalEncodingLang.g:200:2: ( (this_ExactMapping_0= ruleExactMapping | this_TransliterationMapping_1= ruleTransliterationMapping ) )
-            // InternalEncodingLang.g:201:2: (this_ExactMapping_0= ruleExactMapping | this_TransliterationMapping_1= ruleTransliterationMapping )
+            // InternalEncodingLang.g:268:2: ( (this_ExactMapping_0= ruleExactMapping | this_TransliterationMapping_1= ruleTransliterationMapping ) )
+            // InternalEncodingLang.g:269:2: (this_ExactMapping_0= ruleExactMapping | this_TransliterationMapping_1= ruleTransliterationMapping )
             {
-            // InternalEncodingLang.g:201:2: (this_ExactMapping_0= ruleExactMapping | this_TransliterationMapping_1= ruleTransliterationMapping )
-            int alt4=2;
-            int LA4_0 = input.LA(1);
+            // InternalEncodingLang.g:269:2: (this_ExactMapping_0= ruleExactMapping | this_TransliterationMapping_1= ruleTransliterationMapping )
+            int alt5=2;
+            int LA5_0 = input.LA(1);
 
-            if ( (LA4_0==RULE_INPUTCHAR) ) {
-                int LA4_1 = input.LA(2);
+            if ( (LA5_0==RULE_INPUTCHAR) ) {
+                int LA5_1 = input.LA(2);
 
-                if ( (LA4_1==15) ) {
-                    alt4=1;
+                if ( (LA5_1==16) ) {
+                    alt5=1;
                 }
-                else if ( (LA4_1==16) ) {
-                    alt4=2;
+                else if ( (LA5_1==17) ) {
+                    alt5=2;
                 }
                 else {
                     NoViableAltException nvae =
-                        new NoViableAltException("", 4, 1, input);
+                        new NoViableAltException("", 5, 1, input);
 
                     throw nvae;
                 }
             }
             else {
                 NoViableAltException nvae =
-                    new NoViableAltException("", 4, 0, input);
+                    new NoViableAltException("", 5, 0, input);
 
                 throw nvae;
             }
-            switch (alt4) {
+            switch (alt5) {
                 case 1 :
-                    // InternalEncodingLang.g:202:3: this_ExactMapping_0= ruleExactMapping
+                    // InternalEncodingLang.g:270:3: this_ExactMapping_0= ruleExactMapping
                     {
 
                     			newCompositeNode(grammarAccess.getMappingAccess().getExactMappingParserRuleCall_0());
@@ -507,7 +682,7 @@ public class InternalEncodingLangParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-                    // InternalEncodingLang.g:211:3: this_TransliterationMapping_1= ruleTransliterationMapping
+                    // InternalEncodingLang.g:279:3: this_TransliterationMapping_1= ruleTransliterationMapping
                     {
 
                     			newCompositeNode(grammarAccess.getMappingAccess().getTransliterationMappingParserRuleCall_1());
@@ -547,7 +722,7 @@ public class InternalEncodingLangParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleExactMapping"
-    // InternalEncodingLang.g:223:1: entryRuleExactMapping returns [EObject current=null] : iv_ruleExactMapping= ruleExactMapping EOF ;
+    // InternalEncodingLang.g:291:1: entryRuleExactMapping returns [EObject current=null] : iv_ruleExactMapping= ruleExactMapping EOF ;
     public final EObject entryRuleExactMapping() throws RecognitionException {
         EObject current = null;
 
@@ -555,8 +730,8 @@ public class InternalEncodingLangParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalEncodingLang.g:223:53: (iv_ruleExactMapping= ruleExactMapping EOF )
-            // InternalEncodingLang.g:224:2: iv_ruleExactMapping= ruleExactMapping EOF
+            // InternalEncodingLang.g:291:53: (iv_ruleExactMapping= ruleExactMapping EOF )
+            // InternalEncodingLang.g:292:2: iv_ruleExactMapping= ruleExactMapping EOF
             {
              newCompositeNode(grammarAccess.getExactMappingRule()); 
             pushFollow(FOLLOW_1);
@@ -583,7 +758,7 @@ public class InternalEncodingLangParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleExactMapping"
-    // InternalEncodingLang.g:230:1: ruleExactMapping returns [EObject current=null] : ( ( (lv_from_0_0= RULE_INPUTCHAR ) ) otherlv_1= '=' ( (lv_to_2_0= RULE_INPUTCHAR ) ) ) ;
+    // InternalEncodingLang.g:298:1: ruleExactMapping returns [EObject current=null] : ( ( (lv_from_0_0= RULE_INPUTCHAR ) ) otherlv_1= '=' ( (lv_to_2_0= RULE_INPUTCHAR ) ) ) ;
     public final EObject ruleExactMapping() throws RecognitionException {
         EObject current = null;
 
@@ -595,19 +770,19 @@ public class InternalEncodingLangParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalEncodingLang.g:236:2: ( ( ( (lv_from_0_0= RULE_INPUTCHAR ) ) otherlv_1= '=' ( (lv_to_2_0= RULE_INPUTCHAR ) ) ) )
-            // InternalEncodingLang.g:237:2: ( ( (lv_from_0_0= RULE_INPUTCHAR ) ) otherlv_1= '=' ( (lv_to_2_0= RULE_INPUTCHAR ) ) )
+            // InternalEncodingLang.g:304:2: ( ( ( (lv_from_0_0= RULE_INPUTCHAR ) ) otherlv_1= '=' ( (lv_to_2_0= RULE_INPUTCHAR ) ) ) )
+            // InternalEncodingLang.g:305:2: ( ( (lv_from_0_0= RULE_INPUTCHAR ) ) otherlv_1= '=' ( (lv_to_2_0= RULE_INPUTCHAR ) ) )
             {
-            // InternalEncodingLang.g:237:2: ( ( (lv_from_0_0= RULE_INPUTCHAR ) ) otherlv_1= '=' ( (lv_to_2_0= RULE_INPUTCHAR ) ) )
-            // InternalEncodingLang.g:238:3: ( (lv_from_0_0= RULE_INPUTCHAR ) ) otherlv_1= '=' ( (lv_to_2_0= RULE_INPUTCHAR ) )
+            // InternalEncodingLang.g:305:2: ( ( (lv_from_0_0= RULE_INPUTCHAR ) ) otherlv_1= '=' ( (lv_to_2_0= RULE_INPUTCHAR ) ) )
+            // InternalEncodingLang.g:306:3: ( (lv_from_0_0= RULE_INPUTCHAR ) ) otherlv_1= '=' ( (lv_to_2_0= RULE_INPUTCHAR ) )
             {
-            // InternalEncodingLang.g:238:3: ( (lv_from_0_0= RULE_INPUTCHAR ) )
-            // InternalEncodingLang.g:239:4: (lv_from_0_0= RULE_INPUTCHAR )
+            // InternalEncodingLang.g:306:3: ( (lv_from_0_0= RULE_INPUTCHAR ) )
+            // InternalEncodingLang.g:307:4: (lv_from_0_0= RULE_INPUTCHAR )
             {
-            // InternalEncodingLang.g:239:4: (lv_from_0_0= RULE_INPUTCHAR )
-            // InternalEncodingLang.g:240:5: lv_from_0_0= RULE_INPUTCHAR
+            // InternalEncodingLang.g:307:4: (lv_from_0_0= RULE_INPUTCHAR )
+            // InternalEncodingLang.g:308:5: lv_from_0_0= RULE_INPUTCHAR
             {
-            lv_from_0_0=(Token)match(input,RULE_INPUTCHAR,FOLLOW_7); 
+            lv_from_0_0=(Token)match(input,RULE_INPUTCHAR,FOLLOW_9); 
 
             					newLeafNode(lv_from_0_0, grammarAccess.getExactMappingAccess().getFromINPUTCHARTerminalRuleCall_0_0());
             				
@@ -627,15 +802,15 @@ public class InternalEncodingLangParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_1=(Token)match(input,15,FOLLOW_8); 
+            otherlv_1=(Token)match(input,16,FOLLOW_10); 
 
             			newLeafNode(otherlv_1, grammarAccess.getExactMappingAccess().getEqualsSignKeyword_1());
             		
-            // InternalEncodingLang.g:260:3: ( (lv_to_2_0= RULE_INPUTCHAR ) )
-            // InternalEncodingLang.g:261:4: (lv_to_2_0= RULE_INPUTCHAR )
+            // InternalEncodingLang.g:328:3: ( (lv_to_2_0= RULE_INPUTCHAR ) )
+            // InternalEncodingLang.g:329:4: (lv_to_2_0= RULE_INPUTCHAR )
             {
-            // InternalEncodingLang.g:261:4: (lv_to_2_0= RULE_INPUTCHAR )
-            // InternalEncodingLang.g:262:5: lv_to_2_0= RULE_INPUTCHAR
+            // InternalEncodingLang.g:329:4: (lv_to_2_0= RULE_INPUTCHAR )
+            // InternalEncodingLang.g:330:5: lv_to_2_0= RULE_INPUTCHAR
             {
             lv_to_2_0=(Token)match(input,RULE_INPUTCHAR,FOLLOW_2); 
 
@@ -680,7 +855,7 @@ public class InternalEncodingLangParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleTransliterationMapping"
-    // InternalEncodingLang.g:282:1: entryRuleTransliterationMapping returns [EObject current=null] : iv_ruleTransliterationMapping= ruleTransliterationMapping EOF ;
+    // InternalEncodingLang.g:350:1: entryRuleTransliterationMapping returns [EObject current=null] : iv_ruleTransliterationMapping= ruleTransliterationMapping EOF ;
     public final EObject entryRuleTransliterationMapping() throws RecognitionException {
         EObject current = null;
 
@@ -688,8 +863,8 @@ public class InternalEncodingLangParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalEncodingLang.g:282:63: (iv_ruleTransliterationMapping= ruleTransliterationMapping EOF )
-            // InternalEncodingLang.g:283:2: iv_ruleTransliterationMapping= ruleTransliterationMapping EOF
+            // InternalEncodingLang.g:350:63: (iv_ruleTransliterationMapping= ruleTransliterationMapping EOF )
+            // InternalEncodingLang.g:351:2: iv_ruleTransliterationMapping= ruleTransliterationMapping EOF
             {
              newCompositeNode(grammarAccess.getTransliterationMappingRule()); 
             pushFollow(FOLLOW_1);
@@ -716,7 +891,7 @@ public class InternalEncodingLangParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleTransliterationMapping"
-    // InternalEncodingLang.g:289:1: ruleTransliterationMapping returns [EObject current=null] : ( ( (lv_from_0_0= RULE_INPUTCHAR ) ) otherlv_1= '~' ( (lv_to_2_0= RULE_INPUTCHAR ) ) ) ;
+    // InternalEncodingLang.g:357:1: ruleTransliterationMapping returns [EObject current=null] : ( ( (lv_from_0_0= RULE_INPUTCHAR ) ) otherlv_1= '~' ( (lv_to_2_0= RULE_INPUTCHAR ) ) ) ;
     public final EObject ruleTransliterationMapping() throws RecognitionException {
         EObject current = null;
 
@@ -728,19 +903,19 @@ public class InternalEncodingLangParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalEncodingLang.g:295:2: ( ( ( (lv_from_0_0= RULE_INPUTCHAR ) ) otherlv_1= '~' ( (lv_to_2_0= RULE_INPUTCHAR ) ) ) )
-            // InternalEncodingLang.g:296:2: ( ( (lv_from_0_0= RULE_INPUTCHAR ) ) otherlv_1= '~' ( (lv_to_2_0= RULE_INPUTCHAR ) ) )
+            // InternalEncodingLang.g:363:2: ( ( ( (lv_from_0_0= RULE_INPUTCHAR ) ) otherlv_1= '~' ( (lv_to_2_0= RULE_INPUTCHAR ) ) ) )
+            // InternalEncodingLang.g:364:2: ( ( (lv_from_0_0= RULE_INPUTCHAR ) ) otherlv_1= '~' ( (lv_to_2_0= RULE_INPUTCHAR ) ) )
             {
-            // InternalEncodingLang.g:296:2: ( ( (lv_from_0_0= RULE_INPUTCHAR ) ) otherlv_1= '~' ( (lv_to_2_0= RULE_INPUTCHAR ) ) )
-            // InternalEncodingLang.g:297:3: ( (lv_from_0_0= RULE_INPUTCHAR ) ) otherlv_1= '~' ( (lv_to_2_0= RULE_INPUTCHAR ) )
+            // InternalEncodingLang.g:364:2: ( ( (lv_from_0_0= RULE_INPUTCHAR ) ) otherlv_1= '~' ( (lv_to_2_0= RULE_INPUTCHAR ) ) )
+            // InternalEncodingLang.g:365:3: ( (lv_from_0_0= RULE_INPUTCHAR ) ) otherlv_1= '~' ( (lv_to_2_0= RULE_INPUTCHAR ) )
             {
-            // InternalEncodingLang.g:297:3: ( (lv_from_0_0= RULE_INPUTCHAR ) )
-            // InternalEncodingLang.g:298:4: (lv_from_0_0= RULE_INPUTCHAR )
+            // InternalEncodingLang.g:365:3: ( (lv_from_0_0= RULE_INPUTCHAR ) )
+            // InternalEncodingLang.g:366:4: (lv_from_0_0= RULE_INPUTCHAR )
             {
-            // InternalEncodingLang.g:298:4: (lv_from_0_0= RULE_INPUTCHAR )
-            // InternalEncodingLang.g:299:5: lv_from_0_0= RULE_INPUTCHAR
+            // InternalEncodingLang.g:366:4: (lv_from_0_0= RULE_INPUTCHAR )
+            // InternalEncodingLang.g:367:5: lv_from_0_0= RULE_INPUTCHAR
             {
-            lv_from_0_0=(Token)match(input,RULE_INPUTCHAR,FOLLOW_9); 
+            lv_from_0_0=(Token)match(input,RULE_INPUTCHAR,FOLLOW_11); 
 
             					newLeafNode(lv_from_0_0, grammarAccess.getTransliterationMappingAccess().getFromINPUTCHARTerminalRuleCall_0_0());
             				
@@ -760,15 +935,15 @@ public class InternalEncodingLangParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_1=(Token)match(input,16,FOLLOW_8); 
+            otherlv_1=(Token)match(input,17,FOLLOW_10); 
 
             			newLeafNode(otherlv_1, grammarAccess.getTransliterationMappingAccess().getTildeKeyword_1());
             		
-            // InternalEncodingLang.g:319:3: ( (lv_to_2_0= RULE_INPUTCHAR ) )
-            // InternalEncodingLang.g:320:4: (lv_to_2_0= RULE_INPUTCHAR )
+            // InternalEncodingLang.g:387:3: ( (lv_to_2_0= RULE_INPUTCHAR ) )
+            // InternalEncodingLang.g:388:4: (lv_to_2_0= RULE_INPUTCHAR )
             {
-            // InternalEncodingLang.g:320:4: (lv_to_2_0= RULE_INPUTCHAR )
-            // InternalEncodingLang.g:321:5: lv_to_2_0= RULE_INPUTCHAR
+            // InternalEncodingLang.g:388:4: (lv_to_2_0= RULE_INPUTCHAR )
+            // InternalEncodingLang.g:389:5: lv_to_2_0= RULE_INPUTCHAR
             {
             lv_to_2_0=(Token)match(input,RULE_INPUTCHAR,FOLLOW_2); 
 
@@ -813,7 +988,7 @@ public class InternalEncodingLangParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleAlias"
-    // InternalEncodingLang.g:341:1: entryRuleAlias returns [EObject current=null] : iv_ruleAlias= ruleAlias EOF ;
+    // InternalEncodingLang.g:409:1: entryRuleAlias returns [EObject current=null] : iv_ruleAlias= ruleAlias EOF ;
     public final EObject entryRuleAlias() throws RecognitionException {
         EObject current = null;
 
@@ -821,8 +996,8 @@ public class InternalEncodingLangParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalEncodingLang.g:341:46: (iv_ruleAlias= ruleAlias EOF )
-            // InternalEncodingLang.g:342:2: iv_ruleAlias= ruleAlias EOF
+            // InternalEncodingLang.g:409:46: (iv_ruleAlias= ruleAlias EOF )
+            // InternalEncodingLang.g:410:2: iv_ruleAlias= ruleAlias EOF
             {
              newCompositeNode(grammarAccess.getAliasRule()); 
             pushFollow(FOLLOW_1);
@@ -849,7 +1024,7 @@ public class InternalEncodingLangParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleAlias"
-    // InternalEncodingLang.g:348:1: ruleAlias returns [EObject current=null] : (otherlv_0= 'alias' ( (lv_name_1_0= RULE_ID ) ) ) ;
+    // InternalEncodingLang.g:416:1: ruleAlias returns [EObject current=null] : (otherlv_0= 'alias' ( (lv_name_1_0= RULE_ID ) ) ) ;
     public final EObject ruleAlias() throws RecognitionException {
         EObject current = null;
 
@@ -860,21 +1035,21 @@ public class InternalEncodingLangParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalEncodingLang.g:354:2: ( (otherlv_0= 'alias' ( (lv_name_1_0= RULE_ID ) ) ) )
-            // InternalEncodingLang.g:355:2: (otherlv_0= 'alias' ( (lv_name_1_0= RULE_ID ) ) )
+            // InternalEncodingLang.g:422:2: ( (otherlv_0= 'alias' ( (lv_name_1_0= RULE_ID ) ) ) )
+            // InternalEncodingLang.g:423:2: (otherlv_0= 'alias' ( (lv_name_1_0= RULE_ID ) ) )
             {
-            // InternalEncodingLang.g:355:2: (otherlv_0= 'alias' ( (lv_name_1_0= RULE_ID ) ) )
-            // InternalEncodingLang.g:356:3: otherlv_0= 'alias' ( (lv_name_1_0= RULE_ID ) )
+            // InternalEncodingLang.g:423:2: (otherlv_0= 'alias' ( (lv_name_1_0= RULE_ID ) ) )
+            // InternalEncodingLang.g:424:3: otherlv_0= 'alias' ( (lv_name_1_0= RULE_ID ) )
             {
-            otherlv_0=(Token)match(input,17,FOLLOW_3); 
+            otherlv_0=(Token)match(input,18,FOLLOW_4); 
 
             			newLeafNode(otherlv_0, grammarAccess.getAliasAccess().getAliasKeyword_0());
             		
-            // InternalEncodingLang.g:360:3: ( (lv_name_1_0= RULE_ID ) )
-            // InternalEncodingLang.g:361:4: (lv_name_1_0= RULE_ID )
+            // InternalEncodingLang.g:428:3: ( (lv_name_1_0= RULE_ID ) )
+            // InternalEncodingLang.g:429:4: (lv_name_1_0= RULE_ID )
             {
-            // InternalEncodingLang.g:361:4: (lv_name_1_0= RULE_ID )
-            // InternalEncodingLang.g:362:5: lv_name_1_0= RULE_ID
+            // InternalEncodingLang.g:429:4: (lv_name_1_0= RULE_ID )
+            // InternalEncodingLang.g:430:5: lv_name_1_0= RULE_ID
             {
             lv_name_1_0=(Token)match(input,RULE_ID,FOLLOW_2); 
 
@@ -924,12 +1099,14 @@ public class InternalEncodingLangParser extends AbstractInternalAntlrParser {
 
     public static final BitSet FOLLOW_1 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_2 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_3 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_4 = new BitSet(new long[]{0x0000000000002000L});
-    public static final BitSet FOLLOW_5 = new BitSet(new long[]{0x0000000000024020L});
-    public static final BitSet FOLLOW_6 = new BitSet(new long[]{0x0000000000004020L});
-    public static final BitSet FOLLOW_7 = new BitSet(new long[]{0x0000000000008000L});
-    public static final BitSet FOLLOW_8 = new BitSet(new long[]{0x0000000000000020L});
+    public static final BitSet FOLLOW_3 = new BitSet(new long[]{0x0000000000001002L});
+    public static final BitSet FOLLOW_4 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_5 = new BitSet(new long[]{0x0000000000002000L});
+    public static final BitSet FOLLOW_6 = new BitSet(new long[]{0x000000000004C000L});
+    public static final BitSet FOLLOW_7 = new BitSet(new long[]{0x000000000000C000L});
+    public static final BitSet FOLLOW_8 = new BitSet(new long[]{0x0000000000004020L});
     public static final BitSet FOLLOW_9 = new BitSet(new long[]{0x0000000000010000L});
+    public static final BitSet FOLLOW_10 = new BitSet(new long[]{0x0000000000000020L});
+    public static final BitSet FOLLOW_11 = new BitSet(new long[]{0x0000000000020000L});
 
 }

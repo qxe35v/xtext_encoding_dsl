@@ -86,6 +86,11 @@ public class EncodingLangAdapterFactory extends AdapterFactoryImpl
         return createSourceMappingAdapter();
       }
       @Override
+      public Adapter caseConversion(Conversion object)
+      {
+        return createConversionAdapter();
+      }
+      @Override
       public Adapter caseMapping(Mapping object)
       {
         return createMappingAdapter();
@@ -153,6 +158,21 @@ public class EncodingLangAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createSourceMappingAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.xtext.example.encodingLang.Conversion <em>Conversion</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.xtext.example.encodingLang.Conversion
+   * @generated
+   */
+  public Adapter createConversionAdapter()
   {
     return null;
   }

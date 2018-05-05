@@ -19,27 +19,25 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
-import org.xtext.example.encodingLang.Alias;
 import org.xtext.example.encodingLang.Conversion;
 import org.xtext.example.encodingLang.EncodingLangPackage;
-import org.xtext.example.encodingLang.SourceMapping;
+import org.xtext.example.encodingLang.Mapping;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Source Mapping</b></em>'.
+ * An implementation of the model object '<em><b>Conversion</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link org.xtext.example.encodingLang.impl.SourceMappingImpl#getName <em>Name</em>}</li>
- *   <li>{@link org.xtext.example.encodingLang.impl.SourceMappingImpl#getAliases <em>Aliases</em>}</li>
- *   <li>{@link org.xtext.example.encodingLang.impl.SourceMappingImpl#getConversions <em>Conversions</em>}</li>
+ *   <li>{@link org.xtext.example.encodingLang.impl.ConversionImpl#getName <em>Name</em>}</li>
+ *   <li>{@link org.xtext.example.encodingLang.impl.ConversionImpl#getMappings <em>Mappings</em>}</li>
  * </ul>
  *
  * @generated
  */
-public class SourceMappingImpl extends MinimalEObjectImpl.Container implements SourceMapping
+public class ConversionImpl extends MinimalEObjectImpl.Container implements Conversion
 {
   /**
    * The default value of the '{@link #getName() <em>Name</em>}' attribute.
@@ -62,31 +60,21 @@ public class SourceMappingImpl extends MinimalEObjectImpl.Container implements S
   protected String name = NAME_EDEFAULT;
 
   /**
-   * The cached value of the '{@link #getAliases() <em>Aliases</em>}' containment reference list.
+   * The cached value of the '{@link #getMappings() <em>Mappings</em>}' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getAliases()
+   * @see #getMappings()
    * @generated
    * @ordered
    */
-  protected EList<Alias> aliases;
-
-  /**
-   * The cached value of the '{@link #getConversions() <em>Conversions</em>}' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getConversions()
-   * @generated
-   * @ordered
-   */
-  protected EList<Conversion> conversions;
+  protected EList<Mapping> mappings;
 
   /**
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    */
-  protected SourceMappingImpl()
+  protected ConversionImpl()
   {
     super();
   }
@@ -99,7 +87,7 @@ public class SourceMappingImpl extends MinimalEObjectImpl.Container implements S
   @Override
   protected EClass eStaticClass()
   {
-    return EncodingLangPackage.Literals.SOURCE_MAPPING;
+    return EncodingLangPackage.Literals.CONVERSION;
   }
 
   /**
@@ -122,7 +110,7 @@ public class SourceMappingImpl extends MinimalEObjectImpl.Container implements S
     String oldName = name;
     name = newName;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, EncodingLangPackage.SOURCE_MAPPING__NAME, oldName, name));
+      eNotify(new ENotificationImpl(this, Notification.SET, EncodingLangPackage.CONVERSION__NAME, oldName, name));
   }
 
   /**
@@ -130,27 +118,13 @@ public class SourceMappingImpl extends MinimalEObjectImpl.Container implements S
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<Alias> getAliases()
+  public EList<Mapping> getMappings()
   {
-    if (aliases == null)
+    if (mappings == null)
     {
-      aliases = new EObjectContainmentEList<Alias>(Alias.class, this, EncodingLangPackage.SOURCE_MAPPING__ALIASES);
+      mappings = new EObjectContainmentEList<Mapping>(Mapping.class, this, EncodingLangPackage.CONVERSION__MAPPINGS);
     }
-    return aliases;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EList<Conversion> getConversions()
-  {
-    if (conversions == null)
-    {
-      conversions = new EObjectContainmentEList<Conversion>(Conversion.class, this, EncodingLangPackage.SOURCE_MAPPING__CONVERSIONS);
-    }
-    return conversions;
+    return mappings;
   }
 
   /**
@@ -163,10 +137,8 @@ public class SourceMappingImpl extends MinimalEObjectImpl.Container implements S
   {
     switch (featureID)
     {
-      case EncodingLangPackage.SOURCE_MAPPING__ALIASES:
-        return ((InternalEList<?>)getAliases()).basicRemove(otherEnd, msgs);
-      case EncodingLangPackage.SOURCE_MAPPING__CONVERSIONS:
-        return ((InternalEList<?>)getConversions()).basicRemove(otherEnd, msgs);
+      case EncodingLangPackage.CONVERSION__MAPPINGS:
+        return ((InternalEList<?>)getMappings()).basicRemove(otherEnd, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -181,12 +153,10 @@ public class SourceMappingImpl extends MinimalEObjectImpl.Container implements S
   {
     switch (featureID)
     {
-      case EncodingLangPackage.SOURCE_MAPPING__NAME:
+      case EncodingLangPackage.CONVERSION__NAME:
         return getName();
-      case EncodingLangPackage.SOURCE_MAPPING__ALIASES:
-        return getAliases();
-      case EncodingLangPackage.SOURCE_MAPPING__CONVERSIONS:
-        return getConversions();
+      case EncodingLangPackage.CONVERSION__MAPPINGS:
+        return getMappings();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -202,16 +172,12 @@ public class SourceMappingImpl extends MinimalEObjectImpl.Container implements S
   {
     switch (featureID)
     {
-      case EncodingLangPackage.SOURCE_MAPPING__NAME:
+      case EncodingLangPackage.CONVERSION__NAME:
         setName((String)newValue);
         return;
-      case EncodingLangPackage.SOURCE_MAPPING__ALIASES:
-        getAliases().clear();
-        getAliases().addAll((Collection<? extends Alias>)newValue);
-        return;
-      case EncodingLangPackage.SOURCE_MAPPING__CONVERSIONS:
-        getConversions().clear();
-        getConversions().addAll((Collection<? extends Conversion>)newValue);
+      case EncodingLangPackage.CONVERSION__MAPPINGS:
+        getMappings().clear();
+        getMappings().addAll((Collection<? extends Mapping>)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -227,14 +193,11 @@ public class SourceMappingImpl extends MinimalEObjectImpl.Container implements S
   {
     switch (featureID)
     {
-      case EncodingLangPackage.SOURCE_MAPPING__NAME:
+      case EncodingLangPackage.CONVERSION__NAME:
         setName(NAME_EDEFAULT);
         return;
-      case EncodingLangPackage.SOURCE_MAPPING__ALIASES:
-        getAliases().clear();
-        return;
-      case EncodingLangPackage.SOURCE_MAPPING__CONVERSIONS:
-        getConversions().clear();
+      case EncodingLangPackage.CONVERSION__MAPPINGS:
+        getMappings().clear();
         return;
     }
     super.eUnset(featureID);
@@ -250,12 +213,10 @@ public class SourceMappingImpl extends MinimalEObjectImpl.Container implements S
   {
     switch (featureID)
     {
-      case EncodingLangPackage.SOURCE_MAPPING__NAME:
+      case EncodingLangPackage.CONVERSION__NAME:
         return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
-      case EncodingLangPackage.SOURCE_MAPPING__ALIASES:
-        return aliases != null && !aliases.isEmpty();
-      case EncodingLangPackage.SOURCE_MAPPING__CONVERSIONS:
-        return conversions != null && !conversions.isEmpty();
+      case EncodingLangPackage.CONVERSION__MAPPINGS:
+        return mappings != null && !mappings.isEmpty();
     }
     return super.eIsSet(featureID);
   }
@@ -277,4 +238,4 @@ public class SourceMappingImpl extends MinimalEObjectImpl.Container implements S
     return result.toString();
   }
 
-} //SourceMappingImpl
+} //ConversionImpl

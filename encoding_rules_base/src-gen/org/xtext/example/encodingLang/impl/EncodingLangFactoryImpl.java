@@ -67,6 +67,7 @@ public class EncodingLangFactoryImpl extends EFactoryImpl implements EncodingLan
     {
       case EncodingLangPackage.MODEL: return createModel();
       case EncodingLangPackage.SOURCE_MAPPING: return createSourceMapping();
+      case EncodingLangPackage.CONVERSION: return createConversion();
       case EncodingLangPackage.MAPPING: return createMapping();
       case EncodingLangPackage.EXACT_MAPPING: return createExactMapping();
       case EncodingLangPackage.TRANSLITERATION_MAPPING: return createTransliterationMapping();
@@ -96,6 +97,17 @@ public class EncodingLangFactoryImpl extends EFactoryImpl implements EncodingLan
   {
     SourceMappingImpl sourceMapping = new SourceMappingImpl();
     return sourceMapping;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public Conversion createConversion()
+  {
+    ConversionImpl conversion = new ConversionImpl();
+    return conversion;
   }
 
   /**

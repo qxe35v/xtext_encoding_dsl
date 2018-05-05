@@ -87,6 +87,13 @@ public class EncodingLangSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
+      case EncodingLangPackage.CONVERSION:
+      {
+        Conversion conversion = (Conversion)theEObject;
+        T result = caseConversion(conversion);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
       case EncodingLangPackage.MAPPING:
       {
         Mapping mapping = (Mapping)theEObject;
@@ -149,6 +156,22 @@ public class EncodingLangSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseSourceMapping(SourceMapping object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Conversion</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Conversion</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseConversion(Conversion object)
   {
     return null;
   }
