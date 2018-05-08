@@ -25,7 +25,19 @@ class EncodingLangGenerator extends AbstractGenerator {
 //				.filter(Greeting)
 //				.map[name]
 //				.join(', '))
-		fsa.generateFile(resource.toString()+".txt", resource.generate )
+		//TODO (xtend-gen, bin) <- .gitignore
+		//TODO vegen if-ek, doksi eleje, modell tesztelés, c-s fordítás
+		fsa.generateFile(resource.calcFileName+".txt", resource.generate )
+	}
+	
+	def String calcFileName(Resource r){
+		var String s = r.toString
+		var int i=s.length-1
+		while( s.charAt(i).equals('/'.charAt(0))==false ){
+			i--;
+			System.out.println(s.charAt(i));
+		}
+		return s.substring(i,s.length-6)+"_gen";
 	}
 	
 	def generate(Resource r) '''
@@ -33,109 +45,122 @@ class EncodingLangGenerator extends AbstractGenerator {
 	#include <assert.h>
 	#include <hashtable.h>
 	
-	hashtable* aliases_hashbtable(){
-		hashtable* aliases = hashtable_init(256, sizeof(char**), sizeof(char**));
-			«FOR s: r.allContents.toIterable.filter(SourceMapping)»
-			const char* encoding_«s.name» = "«s.name»"; 
-			hashtable_put(aliases,&encoding_«s.name»,&encoding_«s.name»);
-				«FOR a: s.aliases»
-				const char* alias_«a.name»_for_«s.name» = "«a.name»";
-				hashtable_put(aliases,&encoding_«s.name»,&alias_«a.name»_for_«s.name»);
-				«ENDFOR»
-			«ENDFOR»
+	«r.generateAliases»
 	
-		return aliases;
-		}
+	«r.generateUnitLengths»
 	
-	hashtable* unit_lenghts(){
-		hashtable* unit_lengths = hashtable_init(128, sizeof(char**), sizeof(uint8_t*));
-			«FOR s: r.allContents.toIterable.filter(SourceMapping)»
-			«IF !s.conversions.isEmpty && !s.conversions.get(0).mappings.isEmpty»
-			const char* encoding_«s.name» = "«s.name»";
-			uint8_t length_«s.name» = «(s.conversions.get(0).mappings.get(0).from.length-2)/2»;
-			hashtable_put(unit_lengths,&encoding_«s.name»,&length_«s.name»);
-				«FOR c:s.conversions»
-				const char* encoding_«s.name»_to_«c.name» = "«c.name»";
-				uint8_t length_«s.name»_to_«c.name» = «(c.mappings.get(0).to.length-2)/2»;
-				hashtable_put(unit_lengths, &encodding_«s.name»_to_«c.name», &length_«s.name»_to_«c.name»);
-				«ENDFOR»
-			«ENDIF»
-			«ENDFOR»
-	
-		return unit_lengths;
-		}
-	
-	hashtable* mappings(){
-		hahstable* mappings = hashtable_init(128,sizeof(char**), sizeof(hashtable* );
-			«FOR s:r.allContents.toIterable.filter(SourceMapping)»
-			const char* encoding_«s.name» = "«s.name»";
-			hashtable mappings_from_«s.name» = hahstable_init(128,sizeof(char**), sizeof(hashtable*));
-			hashtable_put(mappings, &encoding_«s.name», mappings_from_«s.name»);
-				«FOR c:s.conversions»
-				«IF c.mappings.isEmpty == false»
-				const char* encoding_«s.name»_to_«c.name» = "«c.name»";
-				hashtable mappings_from_«s.name»_to_«c.name» = hashtable_init(
-					«IF c.mappings.get(0).from.length == 4»
-					512,
-					sizeof(uint8_t*),
-					«ELSE»
-						«IF c.mappings.get(0).from.length == 6»
-						31072,
-						sizeof(uint16_t*),
-						«ELSE»
-							8589934592,
-							sizeof(uint32_t*),
-						«ENDIF»
-					«ENDIF»
-					«IF c.mappings.get(0).to.length == 4»
-					sizeof(uint8_t*));1
-					«ELSE»
-						«IF c.mappings.get(0).to.length == 6»
-						sizeof(uint16_t*));
-						«ELSE»
-							sizeof(uint32_t*));
-						«ENDIF»
-					«ENDIF»
-				hashtable_put(mappings_from_«s.name», &encoding_«s.name»_to_«c.name», mappings_from_«s.name»_to_«c.name»);
-					«var a = new State(0)»
-					«FOR m:c.mappings»
-					«IF m.from.length == 4»
-					uint8_t from_value_«a.counter»_«s.name»_to_«c.name» = «HexToDec.hex2decimal(m.from)»;
-					«ELSE»
-						«IF m.from.length == 6»
-						uint16_t from_value_«a.counter»_«s.name»_to_«c.name» = «HexToDec.hex2decimal(m.from)»;
-						«ELSE»
-							uint32_t from_value_«a.counter»_«s.name»_to_«c.name» = «HexToDec.hex2decimal(m.from)»;
-						«ENDIF»
-					«ENDIF»
-					«IF m.to.length == 4»
-					uint8_t to_value_«a.counter»_«s.name»_to_«c.name» = «HexToDec.hex2decimal(m.to)»;
-					«ELSE»
-						«IF m.to.length == 6»
-						uint16_t to_value_«a.counter»_«s.name»_to_«c.name» = «HexToDec.hex2decimal(m.to)»;
-						«ELSE»
-							uint32_t to_value_«a.counter»_«s.name»_to_«c.name» = «HexToDec.hex2decimal(m.to)»;
-						«ENDIF»
-					«ENDIF»
-					hashtable_put(
-						mappings_from_«s.name»_to_«c.name»,
-						&from_value_«a.counter»_«s.name»_to_«c.name»,
-						&to_value_«a.counter»_«s.name»_to_«c.name»);
-					«a.setCounter(a.counter + 1)»
-					«ENDFOR»
-				«ENDIF»
-				«ENDFOR»
-			«ENDFOR»
-	}
+	«r.generateMappings»
 	
 	'''
-}
-
-class State {
-    @Accessors
-    var int counter
-
-    new(int counter){
-        this.counter = counter
-    }
+	def generateAliases(Resource r)'''
+		hashtable* aliases_hashbtable(){
+			hashtable* aliases = hashtable_init(256, sizeof(char**), sizeof(char**));
+			
+			«FOR s: r.allContents.toIterable.filter(SourceMapping)»
+			//aliases for «s.name»
+			const char* encoding_«s.name» = "«s.name»"; 
+			hashtable_put(aliases,&encoding_«s.name»,&encoding_«s.name»);
+			
+			«FOR a: s.aliases»
+			//put to «s.name» alias «a.name»
+			const char* alias_«a.name»_for_«s.name» = "«a.name»";
+			hashtable_put(aliases,&encoding_«s.name»,&alias_«a.name»_for_«s.name»);
+			
+			«ENDFOR»
+			
+			«ENDFOR»
+			return aliases;
+			}
+	'''
+	
+	def generateUnitLengths(Resource r)'''
+		hashtable* unit_lenghts(){
+			hashtable* unit_lengths = hashtable_init(128, sizeof(char**), sizeof(uint8_t*));
+			
+			«FOR s: r.allContents.toIterable.filter(SourceMapping)»
+			«IF !s.conversions.isEmpty && !s.conversions.get(0).mappings.isEmpty»
+			//unit legnths for «s.name»
+			const char* encoding_«s.name» = "«s.name»";
+			uint8_t length_«s.name» = «(s.conversions.get(0).mappings.get(0).from.length-2)/2»;
+			hashtable_put(unit_lengths, &encoding_«s.name», &length_«s.name»);
+			
+			«FOR c:s.conversions»
+			//unit length for «c.name»
+			const char* encoding_«s.name»_to_«c.name» = "«c.name»";
+			uint8_t length_«s.name»_to_«c.name» = «(c.mappings.get(0).to.length-2)/2»;
+			hashtable_put(unit_lengths, &encodding_«s.name»_to_«c.name», &length_«s.name»_to_«c.name»);
+			
+			«ENDFOR»
+			
+			«ENDIF»
+			«ENDFOR»
+			return unit_lengths;
+			}
+	'''
+	
+	def generateMappings(Resource r)'''
+		hashtable* mappings(){
+			// hashtable for everything
+			hahstable* mappings = hashtable_init(128, sizeof(char**), sizeof(hashtable* );1
+			
+			«FOR s:r.allContents.toIterable.filter(SourceMapping)»
+			// hashtable for «s.name»
+			const char* encoding_«s.name» = "«s.name»";
+			hashtable mappings_from_«s.name» = hahstable_init(128, sizeof(char**), sizeof(hashtable*));
+			hashtable_put(mappings, &encoding_«s.name», mappings_from_«s.name»);
+			
+			«FOR c:s.conversions»
+			«IF !c.mappings.isEmpty»
+			// hash for «s.name»->«c.name»
+			const char* encoding_«s.name»_to_«c.name» = "«c.name»";
+			hashtable mappings_from_«s.name»_to_«c.name» = hashtable_init(
+				«IF c.mappings.get(0).from.length == 4»
+				512,
+				sizeof(uint8_t*),
+				«ELSE»
+					«IF c.mappings.get(0).from.length == 6»
+					31072,
+					sizeof(uint16_t*),
+					«ELSE»
+						8589934592,
+						sizeof(uint32_t*),
+					«ENDIF»
+				«ENDIF»
+				«IF c.mappings.get(0).to.length == 4»
+				sizeof(uint8_t*));
+				«ELSE»
+					«IF c.mappings.get(0).to.length == 6»
+					sizeof(uint16_t*));
+					«ELSE»
+						sizeof(uint32_t*));
+					«ENDIF»
+				«ENDIF»
+			hashtable_put(mappings_from_«s.name», &encoding_«s.name»_to_«c.name», mappings_from_«s.name»_to_«c.name»);
+			
+			//filling in «s.name»->«c.name»
+			«IF c.mappings.get(0).from.length == 4»
+					uint8_t from_value_«s.name»_to_«c.name»;
+					«ELSE»
+						«IF c.mappings.get(0).from.length == 6»
+						uint16_t from_value_«s.name»_to_«c.name»;
+						«ELSE»
+							uint32_t from_value_«s.name»_to_«c.name»;
+						«ENDIF»
+					«ENDIF»
+			«FOR m:c.mappings»
+			from_value_«s.name»_to_«c.name» = «HexToDec.hex2decimal(m.from)»;
+			to_value_«s.name»_to_«c.name» = «HexToDec.hex2decimal(m.to)»;
+			hashtable_put(
+				mappings_from_«s.name»_to_«c.name»,
+				&from_value_«s.name»_to_«c.name»,
+				&to_value_«s.name»_to_«c.name»);
+				
+			«ENDFOR»
+			
+			«ENDIF»
+			«ENDFOR»
+			
+			«ENDFOR»
+		}
+	'''
 }

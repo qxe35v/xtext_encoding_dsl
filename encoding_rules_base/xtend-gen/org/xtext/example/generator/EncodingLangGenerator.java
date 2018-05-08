@@ -17,7 +17,6 @@ import org.xtext.example.encodingLang.Conversion;
 import org.xtext.example.encodingLang.Mapping;
 import org.xtext.example.encodingLang.SourceMapping;
 import org.xtext.example.generator.HexToDec;
-import org.xtext.example.generator.State;
 
 /**
  * Generates code from your model files on save.
@@ -28,9 +27,25 @@ import org.xtext.example.generator.State;
 public class EncodingLangGenerator extends AbstractGenerator {
   @Override
   public void doGenerate(final Resource resource, final IFileSystemAccess2 fsa, final IGeneratorContext context) {
-    String _string = resource.toString();
-    String _plus = (_string + ".txt");
+    String _calcFileName = this.calcFileName(resource);
+    String _plus = (_calcFileName + ".txt");
     fsa.generateFile(_plus, this.generate(resource));
+  }
+  
+  public String calcFileName(final Resource r) {
+    String s = r.toString();
+    int _length = s.length();
+    int i = (_length - 1);
+    while ((Character.valueOf(s.charAt(i)).equals(Character.valueOf("/".charAt(0))) == false)) {
+      {
+        i--;
+        System.out.println(s.charAt(i));
+      }
+    }
+    int _length_1 = s.length();
+    int _minus = (_length_1 - 6);
+    String _substring = s.substring(i, _minus);
+    return (_substring + "_gen");
   }
   
   public CharSequence generate(final Resource r) {
@@ -42,271 +57,340 @@ public class EncodingLangGenerator extends AbstractGenerator {
     _builder.append("#include <hashtable.h>");
     _builder.newLine();
     _builder.newLine();
+    CharSequence _generateAliases = this.generateAliases(r);
+    _builder.append(_generateAliases);
+    _builder.newLineIfNotEmpty();
+    _builder.newLine();
+    CharSequence _generateUnitLengths = this.generateUnitLengths(r);
+    _builder.append(_generateUnitLengths);
+    _builder.newLineIfNotEmpty();
+    _builder.newLine();
+    CharSequence _generateMappings = this.generateMappings(r);
+    _builder.append(_generateMappings);
+    _builder.newLineIfNotEmpty();
+    _builder.newLine();
+    return _builder;
+  }
+  
+  public CharSequence generateAliases(final Resource r) {
+    StringConcatenation _builder = new StringConcatenation();
     _builder.append("hashtable* aliases_hashbtable(){");
     _builder.newLine();
     _builder.append("\t");
     _builder.append("hashtable* aliases = hashtable_init(256, sizeof(char**), sizeof(char**));");
     _builder.newLine();
+    _builder.append("\t");
+    _builder.newLine();
     {
       Iterable<SourceMapping> _filter = Iterables.<SourceMapping>filter(IteratorExtensions.<EObject>toIterable(r.getAllContents()), SourceMapping.class);
       for(final SourceMapping s : _filter) {
-        _builder.append("\t\t");
-        _builder.append("const char* encoding_");
+        _builder.append("\t");
+        _builder.append("//aliases for ");
         String _name = s.getName();
-        _builder.append(_name, "\t\t");
-        _builder.append(" = \"");
+        _builder.append(_name, "\t");
+        _builder.newLineIfNotEmpty();
+        _builder.append("\t");
+        _builder.append("const char* encoding_");
         String _name_1 = s.getName();
-        _builder.append(_name_1, "\t\t");
+        _builder.append(_name_1, "\t");
+        _builder.append(" = \"");
+        String _name_2 = s.getName();
+        _builder.append(_name_2, "\t");
         _builder.append("\"; ");
         _builder.newLineIfNotEmpty();
-        _builder.append("\t\t");
+        _builder.append("\t");
         _builder.append("hashtable_put(aliases,&encoding_");
-        String _name_2 = s.getName();
-        _builder.append(_name_2, "\t\t");
-        _builder.append(",&encoding_");
         String _name_3 = s.getName();
-        _builder.append(_name_3, "\t\t");
+        _builder.append(_name_3, "\t");
+        _builder.append(",&encoding_");
+        String _name_4 = s.getName();
+        _builder.append(_name_4, "\t");
         _builder.append(");");
         _builder.newLineIfNotEmpty();
+        _builder.append("\t");
+        _builder.newLine();
         {
           EList<Alias> _aliases = s.getAliases();
           for(final Alias a : _aliases) {
-            _builder.append("\t\t");
+            _builder.append("\t");
+            _builder.append("//put to ");
+            String _name_5 = s.getName();
+            _builder.append(_name_5, "\t");
+            _builder.append(" alias ");
+            String _name_6 = a.getName();
+            _builder.append(_name_6, "\t");
+            _builder.newLineIfNotEmpty();
             _builder.append("\t");
             _builder.append("const char* alias_");
-            String _name_4 = a.getName();
-            _builder.append(_name_4, "\t\t\t");
+            String _name_7 = a.getName();
+            _builder.append(_name_7, "\t");
             _builder.append("_for_");
-            String _name_5 = s.getName();
-            _builder.append(_name_5, "\t\t\t");
+            String _name_8 = s.getName();
+            _builder.append(_name_8, "\t");
             _builder.append(" = \"");
-            String _name_6 = a.getName();
-            _builder.append(_name_6, "\t\t\t");
+            String _name_9 = a.getName();
+            _builder.append(_name_9, "\t");
             _builder.append("\";");
             _builder.newLineIfNotEmpty();
-            _builder.append("\t\t");
             _builder.append("\t");
             _builder.append("hashtable_put(aliases,&encoding_");
-            String _name_7 = s.getName();
-            _builder.append(_name_7, "\t\t\t");
+            String _name_10 = s.getName();
+            _builder.append(_name_10, "\t");
             _builder.append(",&alias_");
-            String _name_8 = a.getName();
-            _builder.append(_name_8, "\t\t\t");
+            String _name_11 = a.getName();
+            _builder.append(_name_11, "\t");
             _builder.append("_for_");
-            String _name_9 = s.getName();
-            _builder.append(_name_9, "\t\t\t");
+            String _name_12 = s.getName();
+            _builder.append(_name_12, "\t");
             _builder.append(");");
             _builder.newLineIfNotEmpty();
+            _builder.append("\t");
+            _builder.newLine();
           }
         }
+        _builder.append("\t");
+        _builder.newLine();
       }
     }
-    _builder.newLine();
     _builder.append("\t");
     _builder.append("return aliases;");
     _builder.newLine();
     _builder.append("\t");
     _builder.append("}");
     _builder.newLine();
-    _builder.newLine();
+    return _builder;
+  }
+  
+  public CharSequence generateUnitLengths(final Resource r) {
+    StringConcatenation _builder = new StringConcatenation();
     _builder.append("hashtable* unit_lenghts(){");
     _builder.newLine();
     _builder.append("\t");
     _builder.append("hashtable* unit_lengths = hashtable_init(128, sizeof(char**), sizeof(uint8_t*));");
     _builder.newLine();
+    _builder.append("\t");
+    _builder.newLine();
     {
-      Iterable<SourceMapping> _filter_1 = Iterables.<SourceMapping>filter(IteratorExtensions.<EObject>toIterable(r.getAllContents()), SourceMapping.class);
-      for(final SourceMapping s_1 : _filter_1) {
+      Iterable<SourceMapping> _filter = Iterables.<SourceMapping>filter(IteratorExtensions.<EObject>toIterable(r.getAllContents()), SourceMapping.class);
+      for(final SourceMapping s : _filter) {
         {
-          if (((!s_1.getConversions().isEmpty()) && (!s_1.getConversions().get(0).getMappings().isEmpty()))) {
-            _builder.append("\t\t");
+          if (((!s.getConversions().isEmpty()) && (!s.getConversions().get(0).getMappings().isEmpty()))) {
+            _builder.append("\t");
+            _builder.append("//unit legnths for ");
+            String _name = s.getName();
+            _builder.append(_name, "\t");
+            _builder.newLineIfNotEmpty();
+            _builder.append("\t");
             _builder.append("const char* encoding_");
-            String _name_10 = s_1.getName();
-            _builder.append(_name_10, "\t\t");
+            String _name_1 = s.getName();
+            _builder.append(_name_1, "\t");
             _builder.append(" = \"");
-            String _name_11 = s_1.getName();
-            _builder.append(_name_11, "\t\t");
+            String _name_2 = s.getName();
+            _builder.append(_name_2, "\t");
             _builder.append("\";");
             _builder.newLineIfNotEmpty();
-            _builder.append("\t\t");
+            _builder.append("\t");
             _builder.append("uint8_t length_");
-            String _name_12 = s_1.getName();
-            _builder.append(_name_12, "\t\t");
+            String _name_3 = s.getName();
+            _builder.append(_name_3, "\t");
             _builder.append(" = ");
-            int _length = s_1.getConversions().get(0).getMappings().get(0).getFrom().length();
+            int _length = s.getConversions().get(0).getMappings().get(0).getFrom().length();
             int _minus = (_length - 2);
             int _divide = (_minus / 2);
-            _builder.append(_divide, "\t\t");
+            _builder.append(_divide, "\t");
             _builder.append(";");
             _builder.newLineIfNotEmpty();
-            _builder.append("\t\t");
-            _builder.append("hashtable_put(unit_lengths,&encoding_");
-            String _name_13 = s_1.getName();
-            _builder.append(_name_13, "\t\t");
-            _builder.append(",&length_");
-            String _name_14 = s_1.getName();
-            _builder.append(_name_14, "\t\t");
+            _builder.append("\t");
+            _builder.append("hashtable_put(unit_lengths, &encoding_");
+            String _name_4 = s.getName();
+            _builder.append(_name_4, "\t");
+            _builder.append(", &length_");
+            String _name_5 = s.getName();
+            _builder.append(_name_5, "\t");
             _builder.append(");");
             _builder.newLineIfNotEmpty();
+            _builder.append("\t");
+            _builder.newLine();
             {
-              EList<Conversion> _conversions = s_1.getConversions();
+              EList<Conversion> _conversions = s.getConversions();
               for(final Conversion c : _conversions) {
-                _builder.append("\t\t");
+                _builder.append("\t");
+                _builder.append("//unit length for ");
+                String _name_6 = c.getName();
+                _builder.append(_name_6, "\t");
+                _builder.newLineIfNotEmpty();
                 _builder.append("\t");
                 _builder.append("const char* encoding_");
-                String _name_15 = s_1.getName();
-                _builder.append(_name_15, "\t\t\t");
+                String _name_7 = s.getName();
+                _builder.append(_name_7, "\t");
                 _builder.append("_to_");
-                String _name_16 = c.getName();
-                _builder.append(_name_16, "\t\t\t");
+                String _name_8 = c.getName();
+                _builder.append(_name_8, "\t");
                 _builder.append(" = \"");
-                String _name_17 = c.getName();
-                _builder.append(_name_17, "\t\t\t");
+                String _name_9 = c.getName();
+                _builder.append(_name_9, "\t");
                 _builder.append("\";");
                 _builder.newLineIfNotEmpty();
-                _builder.append("\t\t");
                 _builder.append("\t");
                 _builder.append("uint8_t length_");
-                String _name_18 = s_1.getName();
-                _builder.append(_name_18, "\t\t\t");
+                String _name_10 = s.getName();
+                _builder.append(_name_10, "\t");
                 _builder.append("_to_");
-                String _name_19 = c.getName();
-                _builder.append(_name_19, "\t\t\t");
+                String _name_11 = c.getName();
+                _builder.append(_name_11, "\t");
                 _builder.append(" = ");
                 int _length_1 = c.getMappings().get(0).getTo().length();
                 int _minus_1 = (_length_1 - 2);
                 int _divide_1 = (_minus_1 / 2);
-                _builder.append(_divide_1, "\t\t\t");
+                _builder.append(_divide_1, "\t");
                 _builder.append(";");
                 _builder.newLineIfNotEmpty();
-                _builder.append("\t\t");
                 _builder.append("\t");
                 _builder.append("hashtable_put(unit_lengths, &encodding_");
-                String _name_20 = s_1.getName();
-                _builder.append(_name_20, "\t\t\t");
+                String _name_12 = s.getName();
+                _builder.append(_name_12, "\t");
                 _builder.append("_to_");
-                String _name_21 = c.getName();
-                _builder.append(_name_21, "\t\t\t");
+                String _name_13 = c.getName();
+                _builder.append(_name_13, "\t");
                 _builder.append(", &length_");
-                String _name_22 = s_1.getName();
-                _builder.append(_name_22, "\t\t\t");
+                String _name_14 = s.getName();
+                _builder.append(_name_14, "\t");
                 _builder.append("_to_");
-                String _name_23 = c.getName();
-                _builder.append(_name_23, "\t\t\t");
+                String _name_15 = c.getName();
+                _builder.append(_name_15, "\t");
                 _builder.append(");");
                 _builder.newLineIfNotEmpty();
+                _builder.append("\t");
+                _builder.newLine();
               }
             }
+            _builder.append("\t");
+            _builder.newLine();
           }
         }
       }
     }
-    _builder.newLine();
     _builder.append("\t");
     _builder.append("return unit_lengths;");
     _builder.newLine();
     _builder.append("\t");
     _builder.append("}");
     _builder.newLine();
-    _builder.newLine();
+    return _builder;
+  }
+  
+  public CharSequence generateMappings(final Resource r) {
+    StringConcatenation _builder = new StringConcatenation();
     _builder.append("hashtable* mappings(){");
     _builder.newLine();
     _builder.append("\t");
-    _builder.append("hahstable* mappings = hashtable_init(128,sizeof(char**), sizeof(hashtable* );");
+    _builder.append("// hashtable for everything");
+    _builder.newLine();
+    _builder.append("\t");
+    _builder.append("hahstable* mappings = hashtable_init(128, sizeof(char**), sizeof(hashtable* );1");
+    _builder.newLine();
+    _builder.append("\t");
     _builder.newLine();
     {
-      Iterable<SourceMapping> _filter_2 = Iterables.<SourceMapping>filter(IteratorExtensions.<EObject>toIterable(r.getAllContents()), SourceMapping.class);
-      for(final SourceMapping s_2 : _filter_2) {
-        _builder.append("\t\t");
+      Iterable<SourceMapping> _filter = Iterables.<SourceMapping>filter(IteratorExtensions.<EObject>toIterable(r.getAllContents()), SourceMapping.class);
+      for(final SourceMapping s : _filter) {
+        _builder.append("\t");
+        _builder.append("// hashtable for ");
+        String _name = s.getName();
+        _builder.append(_name, "\t");
+        _builder.newLineIfNotEmpty();
+        _builder.append("\t");
         _builder.append("const char* encoding_");
-        String _name_24 = s_2.getName();
-        _builder.append(_name_24, "\t\t");
+        String _name_1 = s.getName();
+        _builder.append(_name_1, "\t");
         _builder.append(" = \"");
-        String _name_25 = s_2.getName();
-        _builder.append(_name_25, "\t\t");
+        String _name_2 = s.getName();
+        _builder.append(_name_2, "\t");
         _builder.append("\";");
         _builder.newLineIfNotEmpty();
-        _builder.append("\t\t");
+        _builder.append("\t");
         _builder.append("hashtable mappings_from_");
-        String _name_26 = s_2.getName();
-        _builder.append(_name_26, "\t\t");
-        _builder.append(" = hahstable_init(128,sizeof(char**), sizeof(hashtable*));");
+        String _name_3 = s.getName();
+        _builder.append(_name_3, "\t");
+        _builder.append(" = hahstable_init(128, sizeof(char**), sizeof(hashtable*));");
         _builder.newLineIfNotEmpty();
-        _builder.append("\t\t");
+        _builder.append("\t");
         _builder.append("hashtable_put(mappings, &encoding_");
-        String _name_27 = s_2.getName();
-        _builder.append(_name_27, "\t\t");
+        String _name_4 = s.getName();
+        _builder.append(_name_4, "\t");
         _builder.append(", mappings_from_");
-        String _name_28 = s_2.getName();
-        _builder.append(_name_28, "\t\t");
+        String _name_5 = s.getName();
+        _builder.append(_name_5, "\t");
         _builder.append(");");
         _builder.newLineIfNotEmpty();
+        _builder.append("\t");
+        _builder.newLine();
         {
-          EList<Conversion> _conversions_1 = s_2.getConversions();
-          for(final Conversion c_1 : _conversions_1) {
+          EList<Conversion> _conversions = s.getConversions();
+          for(final Conversion c : _conversions) {
             {
-              boolean _isEmpty = c_1.getMappings().isEmpty();
-              boolean _equals = (_isEmpty == false);
-              if (_equals) {
-                _builder.append("\t\t");
+              boolean _isEmpty = c.getMappings().isEmpty();
+              boolean _not = (!_isEmpty);
+              if (_not) {
+                _builder.append("\t");
+                _builder.append("// hash for ");
+                String _name_6 = s.getName();
+                _builder.append(_name_6, "\t");
+                _builder.append("->");
+                String _name_7 = c.getName();
+                _builder.append(_name_7, "\t");
+                _builder.newLineIfNotEmpty();
                 _builder.append("\t");
                 _builder.append("const char* encoding_");
-                String _name_29 = s_2.getName();
-                _builder.append(_name_29, "\t\t\t");
+                String _name_8 = s.getName();
+                _builder.append(_name_8, "\t");
                 _builder.append("_to_");
-                String _name_30 = c_1.getName();
-                _builder.append(_name_30, "\t\t\t");
+                String _name_9 = c.getName();
+                _builder.append(_name_9, "\t");
                 _builder.append(" = \"");
-                String _name_31 = c_1.getName();
-                _builder.append(_name_31, "\t\t\t");
+                String _name_10 = c.getName();
+                _builder.append(_name_10, "\t");
                 _builder.append("\";");
                 _builder.newLineIfNotEmpty();
-                _builder.append("\t\t");
                 _builder.append("\t");
                 _builder.append("hashtable mappings_from_");
-                String _name_32 = s_2.getName();
-                _builder.append(_name_32, "\t\t\t");
+                String _name_11 = s.getName();
+                _builder.append(_name_11, "\t");
                 _builder.append("_to_");
-                String _name_33 = c_1.getName();
-                _builder.append(_name_33, "\t\t\t");
+                String _name_12 = c.getName();
+                _builder.append(_name_12, "\t");
                 _builder.append(" = hashtable_init(");
                 _builder.newLineIfNotEmpty();
                 {
-                  int _length_2 = c_1.getMappings().get(0).getFrom().length();
-                  boolean _equals_1 = (_length_2 == 4);
-                  if (_equals_1) {
-                    _builder.append("\t\t");
+                  int _length = c.getMappings().get(0).getFrom().length();
+                  boolean _equals = (_length == 4);
+                  if (_equals) {
                     _builder.append("\t");
                     _builder.append("\t");
                     _builder.append("512,");
                     _builder.newLine();
-                    _builder.append("\t\t");
                     _builder.append("\t");
                     _builder.append("\t");
                     _builder.append("sizeof(uint8_t*),");
                     _builder.newLine();
                   } else {
                     {
-                      int _length_3 = c_1.getMappings().get(0).getFrom().length();
-                      boolean _equals_2 = (_length_3 == 6);
-                      if (_equals_2) {
-                        _builder.append("\t\t");
+                      int _length_1 = c.getMappings().get(0).getFrom().length();
+                      boolean _equals_1 = (_length_1 == 6);
+                      if (_equals_1) {
                         _builder.append("\t");
                         _builder.append("\t");
                         _builder.append("31072,");
                         _builder.newLine();
-                        _builder.append("\t\t");
                         _builder.append("\t");
                         _builder.append("\t");
                         _builder.append("sizeof(uint16_t*),");
                         _builder.newLine();
                       } else {
-                        _builder.append("\t\t");
                         _builder.append("\t");
                         _builder.append("\t");
                         _builder.append("8589934592,");
                         _builder.newLine();
-                        _builder.append("\t\t");
                         _builder.append("\t");
                         _builder.append("\t");
                         _builder.append("sizeof(uint32_t*),");
@@ -316,26 +400,23 @@ public class EncodingLangGenerator extends AbstractGenerator {
                   }
                 }
                 {
-                  int _length_4 = c_1.getMappings().get(0).getTo().length();
-                  boolean _equals_3 = (_length_4 == 4);
-                  if (_equals_3) {
-                    _builder.append("\t\t");
+                  int _length_2 = c.getMappings().get(0).getTo().length();
+                  boolean _equals_2 = (_length_2 == 4);
+                  if (_equals_2) {
                     _builder.append("\t");
                     _builder.append("\t");
-                    _builder.append("sizeof(uint8_t*));1");
+                    _builder.append("sizeof(uint8_t*));");
                     _builder.newLine();
                   } else {
                     {
-                      int _length_5 = c_1.getMappings().get(0).getTo().length();
-                      boolean _equals_4 = (_length_5 == 6);
-                      if (_equals_4) {
-                        _builder.append("\t\t");
+                      int _length_3 = c.getMappings().get(0).getTo().length();
+                      boolean _equals_3 = (_length_3 == 6);
+                      if (_equals_3) {
                         _builder.append("\t");
                         _builder.append("\t");
                         _builder.append("sizeof(uint16_t*));");
                         _builder.newLine();
                       } else {
-                        _builder.append("\t\t");
                         _builder.append("\t");
                         _builder.append("\t");
                         _builder.append("sizeof(uint32_t*));");
@@ -344,227 +425,151 @@ public class EncodingLangGenerator extends AbstractGenerator {
                     }
                   }
                 }
-                _builder.append("\t\t");
                 _builder.append("\t");
                 _builder.append("hashtable_put(mappings_from_");
-                String _name_34 = s_2.getName();
-                _builder.append(_name_34, "\t\t\t");
+                String _name_13 = s.getName();
+                _builder.append(_name_13, "\t");
                 _builder.append(", &encoding_");
-                String _name_35 = s_2.getName();
-                _builder.append(_name_35, "\t\t\t");
+                String _name_14 = s.getName();
+                _builder.append(_name_14, "\t");
                 _builder.append("_to_");
-                String _name_36 = c_1.getName();
-                _builder.append(_name_36, "\t\t\t");
+                String _name_15 = c.getName();
+                _builder.append(_name_15, "\t");
                 _builder.append(", mappings_from_");
-                String _name_37 = s_2.getName();
-                _builder.append(_name_37, "\t\t\t");
+                String _name_16 = s.getName();
+                _builder.append(_name_16, "\t");
                 _builder.append("_to_");
-                String _name_38 = c_1.getName();
-                _builder.append(_name_38, "\t\t\t");
+                String _name_17 = c.getName();
+                _builder.append(_name_17, "\t");
                 _builder.append(");");
                 _builder.newLineIfNotEmpty();
-                _builder.append("\t\t");
                 _builder.append("\t");
+                _builder.newLine();
                 _builder.append("\t");
-                State a_1 = new State(0);
+                _builder.append("//filling in ");
+                String _name_18 = s.getName();
+                _builder.append(_name_18, "\t");
+                _builder.append("->");
+                String _name_19 = c.getName();
+                _builder.append(_name_19, "\t");
                 _builder.newLineIfNotEmpty();
                 {
-                  EList<Mapping> _mappings = c_1.getMappings();
-                  for(final Mapping m : _mappings) {
-                    {
-                      int _length_6 = m.getFrom().length();
-                      boolean _equals_5 = (_length_6 == 4);
-                      if (_equals_5) {
-                        _builder.append("\t\t");
-                        _builder.append("\t");
-                        _builder.append("\t");
-                        _builder.append("uint8_t from_value_");
-                        int _counter = a_1.getCounter();
-                        _builder.append(_counter, "\t\t\t\t");
-                        _builder.append("_");
-                        String _name_39 = s_2.getName();
-                        _builder.append(_name_39, "\t\t\t\t");
-                        _builder.append("_to_");
-                        String _name_40 = c_1.getName();
-                        _builder.append(_name_40, "\t\t\t\t");
-                        _builder.append(" = ");
-                        long _hex2decimal = HexToDec.hex2decimal(m.getFrom());
-                        _builder.append(_hex2decimal, "\t\t\t\t");
-                        _builder.append(";");
-                        _builder.newLineIfNotEmpty();
-                      } else {
-                        {
-                          int _length_7 = m.getFrom().length();
-                          boolean _equals_6 = (_length_7 == 6);
-                          if (_equals_6) {
-                            _builder.append("\t\t");
-                            _builder.append("\t");
-                            _builder.append("\t");
-                            _builder.append("uint16_t from_value_");
-                            int _counter_1 = a_1.getCounter();
-                            _builder.append(_counter_1, "\t\t\t\t");
-                            _builder.append("_");
-                            String _name_41 = s_2.getName();
-                            _builder.append(_name_41, "\t\t\t\t");
-                            _builder.append("_to_");
-                            String _name_42 = c_1.getName();
-                            _builder.append(_name_42, "\t\t\t\t");
-                            _builder.append(" = ");
-                            long _hex2decimal_1 = HexToDec.hex2decimal(m.getFrom());
-                            _builder.append(_hex2decimal_1, "\t\t\t\t");
-                            _builder.append(";");
-                            _builder.newLineIfNotEmpty();
-                          } else {
-                            _builder.append("\t\t");
-                            _builder.append("\t");
-                            _builder.append("\t");
-                            _builder.append("uint32_t from_value_");
-                            int _counter_2 = a_1.getCounter();
-                            _builder.append(_counter_2, "\t\t\t\t");
-                            _builder.append("_");
-                            String _name_43 = s_2.getName();
-                            _builder.append(_name_43, "\t\t\t\t");
-                            _builder.append("_to_");
-                            String _name_44 = c_1.getName();
-                            _builder.append(_name_44, "\t\t\t\t");
-                            _builder.append(" = ");
-                            long _hex2decimal_2 = HexToDec.hex2decimal(m.getFrom());
-                            _builder.append(_hex2decimal_2, "\t\t\t\t");
-                            _builder.append(";");
-                            _builder.newLineIfNotEmpty();
-                          }
-                        }
-                      }
-                    }
-                    {
-                      int _length_8 = m.getTo().length();
-                      boolean _equals_7 = (_length_8 == 4);
-                      if (_equals_7) {
-                        _builder.append("\t\t");
-                        _builder.append("\t");
-                        _builder.append("\t");
-                        _builder.append("uint8_t to_value_");
-                        int _counter_3 = a_1.getCounter();
-                        _builder.append(_counter_3, "\t\t\t\t");
-                        _builder.append("_");
-                        String _name_45 = s_2.getName();
-                        _builder.append(_name_45, "\t\t\t\t");
-                        _builder.append("_to_");
-                        String _name_46 = c_1.getName();
-                        _builder.append(_name_46, "\t\t\t\t");
-                        _builder.append(" = ");
-                        long _hex2decimal_3 = HexToDec.hex2decimal(m.getTo());
-                        _builder.append(_hex2decimal_3, "\t\t\t\t");
-                        _builder.append(";");
-                        _builder.newLineIfNotEmpty();
-                      } else {
-                        {
-                          int _length_9 = m.getTo().length();
-                          boolean _equals_8 = (_length_9 == 6);
-                          if (_equals_8) {
-                            _builder.append("\t\t");
-                            _builder.append("\t");
-                            _builder.append("\t");
-                            _builder.append("uint16_t to_value_");
-                            int _counter_4 = a_1.getCounter();
-                            _builder.append(_counter_4, "\t\t\t\t");
-                            _builder.append("_");
-                            String _name_47 = s_2.getName();
-                            _builder.append(_name_47, "\t\t\t\t");
-                            _builder.append("_to_");
-                            String _name_48 = c_1.getName();
-                            _builder.append(_name_48, "\t\t\t\t");
-                            _builder.append(" = ");
-                            long _hex2decimal_4 = HexToDec.hex2decimal(m.getTo());
-                            _builder.append(_hex2decimal_4, "\t\t\t\t");
-                            _builder.append(";");
-                            _builder.newLineIfNotEmpty();
-                          } else {
-                            _builder.append("\t\t");
-                            _builder.append("\t");
-                            _builder.append("\t");
-                            _builder.append("uint32_t to_value_");
-                            int _counter_5 = a_1.getCounter();
-                            _builder.append(_counter_5, "\t\t\t\t");
-                            _builder.append("_");
-                            String _name_49 = s_2.getName();
-                            _builder.append(_name_49, "\t\t\t\t");
-                            _builder.append("_to_");
-                            String _name_50 = c_1.getName();
-                            _builder.append(_name_50, "\t\t\t\t");
-                            _builder.append(" = ");
-                            long _hex2decimal_5 = HexToDec.hex2decimal(m.getTo());
-                            _builder.append(_hex2decimal_5, "\t\t\t\t");
-                            _builder.append(";");
-                            _builder.newLineIfNotEmpty();
-                          }
-                        }
-                      }
-                    }
-                    _builder.append("\t\t");
+                  int _length_4 = c.getMappings().get(0).getFrom().length();
+                  boolean _equals_4 = (_length_4 == 4);
+                  if (_equals_4) {
                     _builder.append("\t");
+                    _builder.append("uint8_t from_value_");
+                    String _name_20 = s.getName();
+                    _builder.append(_name_20, "\t");
+                    _builder.append("_to_");
+                    String _name_21 = c.getName();
+                    _builder.append(_name_21, "\t");
+                    _builder.append(";");
+                    _builder.newLineIfNotEmpty();
+                  } else {
+                    {
+                      int _length_5 = c.getMappings().get(0).getFrom().length();
+                      boolean _equals_5 = (_length_5 == 6);
+                      if (_equals_5) {
+                        _builder.append("\t");
+                        _builder.append("uint16_t from_value_");
+                        String _name_22 = s.getName();
+                        _builder.append(_name_22, "\t");
+                        _builder.append("_to_");
+                        String _name_23 = c.getName();
+                        _builder.append(_name_23, "\t");
+                        _builder.append(";");
+                        _builder.newLineIfNotEmpty();
+                      } else {
+                        _builder.append("\t");
+                        _builder.append("uint32_t from_value_");
+                        String _name_24 = s.getName();
+                        _builder.append(_name_24, "\t");
+                        _builder.append("_to_");
+                        String _name_25 = c.getName();
+                        _builder.append(_name_25, "\t");
+                        _builder.append(";");
+                        _builder.newLineIfNotEmpty();
+                      }
+                    }
+                  }
+                }
+                {
+                  EList<Mapping> _mappings = c.getMappings();
+                  for(final Mapping m : _mappings) {
+                    _builder.append("\t");
+                    _builder.append("from_value_");
+                    String _name_26 = s.getName();
+                    _builder.append(_name_26, "\t");
+                    _builder.append("_to_");
+                    String _name_27 = c.getName();
+                    _builder.append(_name_27, "\t");
+                    _builder.append(" = ");
+                    long _hex2decimal = HexToDec.hex2decimal(m.getFrom());
+                    _builder.append(_hex2decimal, "\t");
+                    _builder.append(";");
+                    _builder.newLineIfNotEmpty();
+                    _builder.append("\t");
+                    _builder.append("to_value_");
+                    String _name_28 = s.getName();
+                    _builder.append(_name_28, "\t");
+                    _builder.append("_to_");
+                    String _name_29 = c.getName();
+                    _builder.append(_name_29, "\t");
+                    _builder.append(" = ");
+                    long _hex2decimal_1 = HexToDec.hex2decimal(m.getTo());
+                    _builder.append(_hex2decimal_1, "\t");
+                    _builder.append(";");
+                    _builder.newLineIfNotEmpty();
                     _builder.append("\t");
                     _builder.append("hashtable_put(");
                     _builder.newLine();
-                    _builder.append("\t\t");
-                    _builder.append("\t");
                     _builder.append("\t");
                     _builder.append("\t");
                     _builder.append("mappings_from_");
-                    String _name_51 = s_2.getName();
-                    _builder.append(_name_51, "\t\t\t\t\t");
+                    String _name_30 = s.getName();
+                    _builder.append(_name_30, "\t\t");
                     _builder.append("_to_");
-                    String _name_52 = c_1.getName();
-                    _builder.append(_name_52, "\t\t\t\t\t");
+                    String _name_31 = c.getName();
+                    _builder.append(_name_31, "\t\t");
                     _builder.append(",");
                     _builder.newLineIfNotEmpty();
-                    _builder.append("\t\t");
-                    _builder.append("\t");
                     _builder.append("\t");
                     _builder.append("\t");
                     _builder.append("&from_value_");
-                    int _counter_6 = a_1.getCounter();
-                    _builder.append(_counter_6, "\t\t\t\t\t");
-                    _builder.append("_");
-                    String _name_53 = s_2.getName();
-                    _builder.append(_name_53, "\t\t\t\t\t");
+                    String _name_32 = s.getName();
+                    _builder.append(_name_32, "\t\t");
                     _builder.append("_to_");
-                    String _name_54 = c_1.getName();
-                    _builder.append(_name_54, "\t\t\t\t\t");
+                    String _name_33 = c.getName();
+                    _builder.append(_name_33, "\t\t");
                     _builder.append(",");
                     _builder.newLineIfNotEmpty();
-                    _builder.append("\t\t");
-                    _builder.append("\t");
                     _builder.append("\t");
                     _builder.append("\t");
                     _builder.append("&to_value_");
-                    int _counter_7 = a_1.getCounter();
-                    _builder.append(_counter_7, "\t\t\t\t\t");
-                    _builder.append("_");
-                    String _name_55 = s_2.getName();
-                    _builder.append(_name_55, "\t\t\t\t\t");
+                    String _name_34 = s.getName();
+                    _builder.append(_name_34, "\t\t");
                     _builder.append("_to_");
-                    String _name_56 = c_1.getName();
-                    _builder.append(_name_56, "\t\t\t\t\t");
+                    String _name_35 = c.getName();
+                    _builder.append(_name_35, "\t\t");
                     _builder.append(");");
                     _builder.newLineIfNotEmpty();
-                    _builder.append("\t\t");
                     _builder.append("\t");
                     _builder.append("\t");
-                    int _counter_8 = a_1.getCounter();
-                    int _plus = (_counter_8 + 1);
-                    a_1.setCounter(_plus);
-                    _builder.newLineIfNotEmpty();
+                    _builder.newLine();
                   }
                 }
+                _builder.append("\t");
+                _builder.newLine();
               }
             }
           }
         }
+        _builder.append("\t");
+        _builder.newLine();
       }
     }
     _builder.append("}");
-    _builder.newLine();
     _builder.newLine();
     return _builder;
   }
